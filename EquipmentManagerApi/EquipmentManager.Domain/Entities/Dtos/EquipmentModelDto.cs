@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Entities.Dtos
 {
-    internal class EquipmentModelDto
+    public class EquipmentModelDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

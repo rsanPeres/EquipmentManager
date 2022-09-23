@@ -2,5 +2,7 @@
 {
     public class GetUserResponse
     {
+        public string UserName { get; set; }
+
     }
 }

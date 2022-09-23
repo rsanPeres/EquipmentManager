@@ -2,5 +2,7 @@
 {
     public class UpdateUserResponse
     {
+        public string UserName { get; set; }
+
     }
 }

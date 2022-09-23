@@ -2,5 +2,7 @@
 {
     public class DeleteUserResponse
     {
+        public string UserName { get; set; }
+
     }
 }

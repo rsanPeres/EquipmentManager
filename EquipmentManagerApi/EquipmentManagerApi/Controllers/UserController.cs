@@ -10,12 +10,12 @@ namespace EquipmentManagerApi.Controllers
 {
     [ApiController]
     [Route("api/v1/user")]
-    public class EmployeeController : Controller
+    public class UserController : Controller
     {
         private readonly IMapper _mapper;
         private readonly UserService _service;
 
-        public EmployeeController(UserService service, IMapper mapper)
+        public UserController(UserService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;

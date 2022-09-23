@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Entities.Dtos
 {
-    public class UserDto
+    internal class EquipmentDto
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-        public string Cpf { get; set; }
+        public string Name { get; set; }
+        public int EquipmentModelId { get; set; }
+        public EquipmentModel EquipmentModel { get; set; }
     }
 }

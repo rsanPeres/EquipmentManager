@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Services;
+using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -32,8 +33,8 @@ namespace EquipmentManagerApi.Controllers
                 {
                     throw new Exception(result.ToString());
                 }
-
-                var user = _service.Get(request);
+                var userDto = _mapper.Map<UserDto>(request);
+                var user = _service.Get(userDto);
 
                 var ret = _mapper.Map<GetUserResponse>(user);
                 var response = new ApiResponse<GetUserResponse>()
@@ -68,8 +69,8 @@ namespace EquipmentManagerApi.Controllers
                 {
                     throw new Exception(result.ToString());
                 }
-
-                var user = _service.Create(request);
+                var userDto = _mapper.Map<UserDto>(request);
+                var user = _service.Create(userDto);
 
                 var ret = _mapper.Map<CreateUserResponse>(user);
                 var response = new ApiResponse<CreateUserResponse>()
@@ -104,8 +105,8 @@ namespace EquipmentManagerApi.Controllers
                 {
                     throw new Exception(result.ToString());
                 }
-
-                var user = _service.Update(request);
+                var userDto = _mapper.Map<UserDto>(request);
+                var user = _service.Update(userDto);
 
                 var ret = _mapper.Map<UpdateUserResponse>(user);
                 var response = new ApiResponse<UpdateUserResponse>()
@@ -140,10 +141,10 @@ namespace EquipmentManagerApi.Controllers
                 {
                     throw new Exception(result.ToString());
                 }
+                var userDto = _mapper.Map<UserDto>(request);
+                _service.Delete(userDto);
 
-                var user = _service.Delete(request);
-
-                var ret = _mapper.Map<DeleteUserResponse>(user);
+                var ret = _mapper.Map<DeleteUserResponse>(request);
                 var response = new ApiResponse<DeleteUserResponse>()
                 {
                     Success = true,

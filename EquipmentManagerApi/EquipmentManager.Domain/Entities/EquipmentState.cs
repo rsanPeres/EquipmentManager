@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Entities
 {
-    public class EquipmentModel : Notifiable<Notification>
+    public class EquipmentState : Notifiable<Notification>
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Equipment> Equipments { get; set; }
+        public string Color { get; set; }
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; set; }
-        
+        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
 
-        public EquipmentModel()
-        {
 
-        }
     }
 }

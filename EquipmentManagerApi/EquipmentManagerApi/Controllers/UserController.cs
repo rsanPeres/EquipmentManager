@@ -4,6 +4,7 @@ using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EquipmentManagerApi.Controllers
@@ -22,6 +23,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get(GetUserRequest request)
         {
             try
@@ -58,6 +60,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create(CreateUserRequest request)
         {
             try
@@ -94,6 +97,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpPatch]
+        [Authorize(Roles = "manager, employee")]
         public async Task<IActionResult> Update(UpdateUserRequest request)
         {
             try
@@ -130,6 +134,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> Delete(DeleteUserRequest request)
         {
             try

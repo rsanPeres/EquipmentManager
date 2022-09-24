@@ -8,6 +8,8 @@ namespace EquipmentManager.Domain.Entities
         public string Name { get; set; }
         public int EquipmentModelId { get; set; }
         public EquipmentModel EquipmentModel { get; set; }
+        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
+        public ICollection<EquipmentPositionHistory> EquipmentPositionHistories { get; set; }
 
         public Equipment()
         {

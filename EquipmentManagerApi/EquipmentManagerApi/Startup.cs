@@ -3,6 +3,7 @@ using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
 using EquipmentManager.Repository;
+using EquipmentManager.Repository.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -47,7 +48,9 @@ namespace BreakevenStoneApi
             opt.UseSqlServer(Configuration.GetConnectionString("EquipmentManager")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<EquipmentService, EquipmentService>();
+            services.AddScoped<UserService, UserService>();
             services.AddScoped<EquipmentRepository, EquipmentRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             AddApplicationServices(services);
             services.AddSwaggerGen(c =>
             {

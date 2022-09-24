@@ -6,9 +6,9 @@ using System.Text;
 
 namespace EquipmentManager.Application.Services
 {
-    internal class TokenService
+    public class TokenService
     {
-        public static string GeneateToken(User user)
+        public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(TokenSettings.Secret);

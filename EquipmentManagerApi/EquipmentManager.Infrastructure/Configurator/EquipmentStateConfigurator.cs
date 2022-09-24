@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Infrastructure.Configurator
 {
-    public class EquipmentModelConfigurator : IEntityTypeConfiguration<EquipmentModel>
+    internal class EquipmentStateConfigurator : IEntityTypeConfiguration<EquipmentState>
     {
 
-        public void Configure(EntityTypeBuilder<EquipmentModel> builder)
+        public void Configure(EntityTypeBuilder<EquipmentState> builder)
         {
 
             builder
-                .ToTable("Equipment_Model");
+                 .ToTable("Equipment_State");
             builder
                 .HasKey(x => x.Id);
             builder
                 .Property(p => p.Id)
-                .HasColumnName("Id_Equipment_Model");
+                .HasColumnName("Id_EquipmentState");
             builder
-                .Property(p => p.Name).HasColumnName("Name_Equipment_Model")
+                .Property(p => p.Name).HasColumnName("Name_Equipment")
                 .HasColumnType("varchar(50)").IsRequired();
 
             builder.Ignore(x => x.Notifications);

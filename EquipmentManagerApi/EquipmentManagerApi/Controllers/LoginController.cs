@@ -13,13 +13,13 @@ namespace EquipmentManagerApi.Controllers
     [Route("api/v1/login")]
     public class LoginController : Controller
     {
-        private readonly UserService _userService;
+        private readonly LoginService _loginService;
         private readonly IMapper _mapper;
         private readonly TokenService _tokenService;
 
-        public LoginController(UserService service, IMapper mappper, TokenService token)
+        public LoginController(LoginService service, IMapper mappper, TokenService token)
         {
-            _userService = service;
+            _loginService = service;
             _mapper = mappper;
             _tokenService = token;
         }
@@ -37,13 +37,14 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _userService.Get(userDto);
+                var user = _loginService.VerifyUserPassword(userDto);
                 if (user == null) return NotFound(new { message = "User not found"});
 
                 var userT = _mapper.Map<User>(user);
                 var token = _tokenService.GenerateToken(userT);
 
-                var ret = _mapper.Map<LoginUserResponse> (user);
+                var ret = _mapper.Map<LoginUserResponse>(user);
+                ret.Token = token;
                 var response = new ApiResponse<LoginUserResponse>()
                 {
                     Success = true,

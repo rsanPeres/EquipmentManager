@@ -15,9 +15,9 @@ namespace EquipmentManager.Domain.Entities
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; set; }
         
 
-        public EquipmentModel()
+        public EquipmentModel(string name)
         {
-
+            Name = name;
         }
     }
 }

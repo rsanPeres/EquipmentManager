@@ -23,7 +23,7 @@ namespace EquipmentManager.Application.Services
 
         public UserDto Create(UserDto userDto)
         {
-            var user = new User(userDto.Id, userDto.UserName, userDto.Password, userDto.Role, userDto.Cpf);
+            var user = new User(userDto.UserName, userDto.Password, userDto.Role, userDto.Cpf);
             if (user.IsValid)
             {
                 _repository.Create(user);

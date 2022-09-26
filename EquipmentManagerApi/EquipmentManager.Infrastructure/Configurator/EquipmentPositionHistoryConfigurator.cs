@@ -19,7 +19,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .ToTable("Equipment_Position_History");
             builder
                 .HasKey(x => new { x.EquipmentId, x.DateRegisteredPosition })
-                .HasName("Id_EquipmentModelStateHourlyEarning");
+                .HasName("Id_EquipmentPositionHistory");
 
             builder.HasOne(x => x.Equipment)
                 .WithMany(x => x.EquipmentPositionHistories)

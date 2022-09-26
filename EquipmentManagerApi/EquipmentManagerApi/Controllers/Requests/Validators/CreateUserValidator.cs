@@ -7,10 +7,6 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
 
         public CreateUserValidator()
         {
-            RuleFor(p => p.Id)
-                .NotEmpty()
-                .NotNull();
-
             RuleFor(p => p.Cpf)
                 .NotNull()
                 .IsValidCPF()

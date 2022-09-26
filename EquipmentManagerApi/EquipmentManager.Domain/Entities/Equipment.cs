@@ -11,9 +11,9 @@ namespace EquipmentManager.Domain.Entities
         public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
         public ICollection<EquipmentPositionHistory> EquipmentPositionHistories { get; set; }
 
-        public Equipment()
+        public Equipment(string name)
         {
-
+            Name = name;
         }
     }
 }

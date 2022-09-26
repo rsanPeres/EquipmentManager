@@ -2,11 +2,6 @@
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManager.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Application.Services
 {
@@ -23,7 +18,7 @@ namespace EquipmentManager.Application.Services
 
         public EquipmentDto Create(EquipmentDto equipmentDto)
         {
-            var equipment = new Equipment();
+            var equipment = new Equipment(equipmentDto.Name);
             if (equipment.IsValid)
             {
                 _repository.Create(equipment);

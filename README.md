@@ -1,1 +1,1 @@
-# EquipmentManager
+# Equipment Manager API

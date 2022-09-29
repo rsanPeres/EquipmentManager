@@ -1,4 +1,5 @@
 ﻿using EquipmentManager.Domain.Entities;
+using EquipmentManager.Domain.Entities.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,7 +15,7 @@ namespace EquipmentManager.Domain.Interfaces.Repository
     {
         public User Get(string cpf);
         public User Create(User user);
-        public User Update(string name, string newName);
+        public User Update(string name, RoleNames role);
         public void Delete(string cpf);
     }
 }

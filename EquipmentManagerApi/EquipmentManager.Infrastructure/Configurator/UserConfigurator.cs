@@ -1,6 +1,8 @@
 ﻿using EquipmentManager.Domain.Entities;
+using EquipmentManager.Domain.Entities.Enuns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquipmentManager.Infrastructure.Configurator
 {
@@ -25,6 +27,8 @@ namespace EquipmentManager.Infrastructure.Configurator
             builder
                 .Property(p => p.UserName).HasColumnName("User_Name")
                 .HasColumnType("varchar(50)").IsRequired();
+            builder
+                .Property(p => p.Role).HasConversion<EnumToStringConverter<RoleNames>>();
 
             builder.Ignore(x => x.Notifications);
             builder.Ignore(x => x.IsValid);

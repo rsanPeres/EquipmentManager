@@ -22,7 +22,7 @@ namespace EquipmentManager.Domain.Entities
         {
             UserName = userName;
             Password = password;
-            Role = role;
+            EnumSet(role);
             Cpf = cpf;
         }
 

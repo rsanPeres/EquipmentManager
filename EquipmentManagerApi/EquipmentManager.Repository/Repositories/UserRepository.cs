@@ -1,4 +1,5 @@
 ﻿using EquipmentManager.Domain.Entities;
+using EquipmentManager.Domain.Entities.Enuns;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
 using System;
@@ -35,12 +36,12 @@ namespace EquipmentManager.Repository.Repositories
             return user;
         }
 
-        public User Update(string role, string cpf)
+        public User Update(string cpf, RoleNames name)
         {
             var user = AppContext.User.First(p => p.Cpf == cpf);
             if (user != null)
             {
-                AppContext.User.Where(p => p.Cpf == cpf).ToList().ForEach(p => p.Role = role);
+                AppContext.User.Where(p => p.Cpf == cpf).ToList().ForEach(p => p.Role = name);
                 AppContext.SaveChanges();
                 return user;
             }

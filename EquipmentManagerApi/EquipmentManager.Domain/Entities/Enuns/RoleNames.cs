@@ -8,6 +8,7 @@ namespace EquipmentManager.Domain.Entities.Enuns
 {
     public enum RoleNames
     {
+        Default,
         Manager,
         Employee
 

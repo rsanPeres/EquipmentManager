@@ -26,6 +26,7 @@ namespace EquipmentManager.Domain.Entities
             Cpf = cpf;
         }
 
+        //Todo: O que esse método faz? O método tem que refletir clareza do seu propósito
         public void EnumSet(string role) {
             switch (role.ToLower())
             {

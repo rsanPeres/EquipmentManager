@@ -10,6 +10,7 @@ namespace EquipmentManager.Domain.Entities
 {
     public class EmployeeRoleNames
     {
+        //Todo: pode-se optar por mapeamento ORM por annotations ou FluentApi. Mas já que está usando FluentApi,melhor concentrar essas validações por lá
         [Required]
         public int EmployeeRoleId { get
             {
@@ -23,6 +24,8 @@ namespace EquipmentManager.Domain.Entities
         [EnumDataType(typeof(RoleNames))]
         public RoleNames RoleName { get; set; }
 
-        public ICollection<User> Users { get; set; }    
+        public ICollection<User> Users { get; set; }   
+        
+        //Todo: é importante inciailizar esta collection
     }
 }

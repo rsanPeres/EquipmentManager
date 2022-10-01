@@ -88,5 +88,11 @@ namespace EquipmentManagerApi.Mappers
             CreateMap<UserDto, LoginUserResponse>()
                 .ReverseMap();
         }
+
+        private void DeleteRequestToResponse()
+        {
+            CreateMap<DeleteUserRequest, DeleteUserResponse>()
+                .ReverseMap();
+        }
     }
 }

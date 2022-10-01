@@ -97,7 +97,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpPatch]
-        [Authorize(Roles = "manager, employee")]
+        [AllowAnonymous]
         public async Task<IActionResult> Update(UpdateUserRequest request)
         {
             try
@@ -134,7 +134,8 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        [AllowAnonymous]
+        
         public async Task<IActionResult> Delete(DeleteUserRequest request)
         {
             try
@@ -149,11 +150,9 @@ namespace EquipmentManagerApi.Controllers
                 var userDto = _mapper.Map<UserDto>(request);
                 _service.Delete(userDto);
 
-                var ret = _mapper.Map<DeleteUserResponse>(request);
                 var response = new ApiResponse<DeleteUserResponse>()
                 {
                     Success = true,
-                    Data = ret,
                     Messages = null
                 };
                 return Ok(response);

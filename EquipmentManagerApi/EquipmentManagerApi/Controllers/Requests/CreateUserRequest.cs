@@ -1,4 +1,4 @@
-﻿using EquipmentManager.Domain.Entities.Enuns;
+﻿using EquipmentManager.Domain.Enums;
 
 namespace EquipmentManagerApi.Controllers.Requests
 {

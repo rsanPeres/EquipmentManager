@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EquipmentManager.Domain.Entities
+namespace EquipmentManager.Domain.Settings
 {
     //Todo: Levar esta esta classe para quem está lhe dando com a autenticação. Certamente não é o domínio
     public static class TokenSettings

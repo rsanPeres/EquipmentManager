@@ -1,5 +1,5 @@
 ﻿using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Enuns;
+using EquipmentManager.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

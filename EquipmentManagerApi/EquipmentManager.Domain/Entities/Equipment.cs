@@ -4,21 +4,21 @@ namespace EquipmentManager.Domain.Entities
 {
     public class Equipment : Notifiable<Notification>
     {
-        //Todo: Setters devem ser privados. O estado da entidade deve ser alterado por meio de operações.
-
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
 
         //Todo: pq precisa desta prop, já que abaixo vc referencia o objjeto?
-        public int EquipmentModelId { get; set; }
+        public int EquipmentModelId { get; private set; }
         public EquipmentModel EquipmentModel { get; set; }
-        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
-        public ICollection<EquipmentPositionHistory> EquipmentPositionHistories { get; set; }
+        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
+        public ICollection<EquipmentPositionHistory> EquipmentPositionHistories { get; private set; }
 
-        //Todo: É válido ter um equipamento sem modelo? Seu código está dizendo que sim
-        public Equipment(string name)
+        public Equipment(string name, EquipmentModel equipmentModel)
         {
             Name = name;
+            EquipmentModel.Id = equipmentModel.Id;
+            EquipmentStatesHistory = new List<EquipmentStateHistory>();
+            EquipmentPositionHistories = new List<EquipmentPositionHistory>();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace EquipmentManagerApi.Controllers
                     Data = ret,
                     Messages = null
                 };
-                return Ok(response);
+                return Ok(ret);
             }
             catch (Exception e)
             {
@@ -61,7 +61,7 @@ namespace EquipmentManagerApi.Controllers
                     Data = null,
                     Messages = e.Message
                 };
-                return BadRequest(response);
+                return BadRequest(null);
             }
         }
     }

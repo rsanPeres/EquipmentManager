@@ -1,22 +1,16 @@
-﻿using EquipmentManager.Domain.Entities.Enuns;
+﻿using EquipmentManager.Domain.Enums;
 using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Entities
 {
     public class User : Notifiable<Notification>
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public int RoleId { get; set; }
+        public int Id { get; private set; }
+        public string UserName { get; private set; }
+        public string Password { get; private set; }
+        public int RoleId { get; private set; }
         public RoleNames Role { get; set; }
-        public string Cpf { get; set; }
+        public string Cpf { get; private set; }
 
         public User(string userName, string password, RoleNames role, string cpf)
         {
@@ -26,17 +20,5 @@ namespace EquipmentManager.Domain.Entities
             Cpf = cpf;
         }
 
-        //Todo: O que esse método faz? O método tem que refletir clareza do seu propósito
-        public void EnumSet(string role) {
-            switch (role.ToLower())
-            {
-                case "manager":
-                    this.Role = RoleNames.Manager;
-                    break;
-                default:
-                    this.Role = RoleNames.Employee;
-                    break;
-            }
-        }
     }
 }

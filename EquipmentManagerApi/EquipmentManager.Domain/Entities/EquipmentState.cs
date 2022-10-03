@@ -9,11 +9,11 @@ namespace EquipmentManager.Domain.Entities
 {
     public class EquipmentState : Notifiable<Notification>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Color { get; set; }
-        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; set; }
-        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Color { get; private set; }
+        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
+        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
 
 
     }

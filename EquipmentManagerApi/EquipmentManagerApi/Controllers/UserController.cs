@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Services;
 using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Domain.Enums;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -23,7 +24,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Manager, Employee")]
         public IActionResult Get(GetUserRequest request)
         {
             try
@@ -97,7 +98,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpPatch]
-        [Authorize(Roles = "manager, employee")]
+        [Authorize(Roles = "Manager, Employee")]
         public async Task<IActionResult> Update(UpdateUserRequest request)
         {
             try

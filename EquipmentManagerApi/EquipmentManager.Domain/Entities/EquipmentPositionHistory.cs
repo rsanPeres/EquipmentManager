@@ -9,11 +9,11 @@ namespace EquipmentManager.Domain.Entities
 {
     public class EquipmentPositionHistory : Notifiable<Notification>
     {
-        public int Id { get; set; }
-        public DateTime DateRegisteredPosition { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
-        public int EquipmentId { get; set; }
-        public Equipment Equipment { get; set; }
+        public int Id { get; private set; }
+        public DateTime DateRegisteredPosition { get; private set; }
+        public string Latitude { get; private set; }
+        public string Longitude { get; private set; }
+        public int EquipmentId { get; private set; }
+        public Equipment Equipment { get; private set; }
     }
 }

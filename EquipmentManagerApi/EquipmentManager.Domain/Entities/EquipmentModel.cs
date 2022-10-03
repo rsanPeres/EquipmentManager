@@ -11,8 +11,8 @@ namespace EquipmentManager.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Equipment> Equipments { get; set; }
-        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; set; }
+        public ICollection<Equipment> Equipments { get; private set; }
+        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
         
 
         public EquipmentModel(string name)

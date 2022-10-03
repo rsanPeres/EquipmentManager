@@ -18,7 +18,7 @@ namespace EquipmentManager.Application.Services
 
         public EquipmentDto Create(EquipmentDto equipmentDto)
         {
-            var equipment = new Equipment(equipmentDto.Name);
+            var equipment = new Equipment(equipmentDto.Name, equipmentDto.EquipmentModel);
             if (equipment.IsValid)
             {
                 _repository.Create(equipment);

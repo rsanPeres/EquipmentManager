@@ -1,13 +1,5 @@
 ﻿using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Enuns;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Dynamic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EquipmentManager.Domain.Enums;
 
 namespace EquipmentManager.Domain.Interfaces.Repository
 {

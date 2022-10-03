@@ -29,6 +29,8 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .HasColumnType("varchar(50)").IsRequired();
             builder
                 .Property(p => p.Role).HasConversion<EnumToStringConverter<RoleNames>>();
+            builder
+                .Property(p => p.RoleId).IsRequired();
 
             builder.Ignore(x => x.Notifications);
             builder.Ignore(x => x.IsValid);

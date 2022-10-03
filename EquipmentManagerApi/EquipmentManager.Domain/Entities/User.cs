@@ -26,10 +26,10 @@ namespace EquipmentManager.Domain.Entities
             Cpf = cpf;
         }
 
-        public void EnumSet(string role) {
-            switch (role.ToLower())
+        public void EnumSet(RoleNames role) {
+            switch (role)
             {
-                case "manager":
+                case RoleNames.Manager:
                     this.Role = RoleNames.Manager;
                     break;
                 default:

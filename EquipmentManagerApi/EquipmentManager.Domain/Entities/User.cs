@@ -8,7 +8,6 @@ namespace EquipmentManager.Domain.Entities
         public int Id { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
-        public int RoleId { get; private set; }
         public RoleNames Role { get; set; }
         public string Cpf { get; private set; }
 

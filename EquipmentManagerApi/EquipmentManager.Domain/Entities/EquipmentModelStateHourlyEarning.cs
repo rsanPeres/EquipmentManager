@@ -1,13 +1,8 @@
 ﻿using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Entities
 {
-    public class EquipmentModelStateHourlyEarning : Notifiable<Notification> 
+    public class EquipmentModelStateHourlyEarning : Notifiable<Notification>
     {
         public int EquipmentModelId { get; set; }
         public EquipmentModel EquipmentModel { get; set; }
@@ -15,9 +10,9 @@ namespace EquipmentManager.Domain.Entities
         public EquipmentState EquipmentState { get; set; }
         public Decimal EarnedValueByHourState { get; set; }
 
-        public EquipmentModelStateHourlyEarning(EquipmentModel equipmentModel, EquipmentState equipmentState)
+        public EquipmentModelStateHourlyEarning(string equipmentModelName)
         {
-            EquipmentModel = new EquipmentModel(equipmentModel.Name);
+            EquipmentModel = new EquipmentModel(equipmentModelName);
             EquipmentState = new EquipmentState();
         }
     }

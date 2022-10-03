@@ -15,6 +15,9 @@ namespace EquipmentManager.Domain.Entities
 
         public Equipment(string name, EquipmentModel equipmentModel)
         {
+
+            //Todo: Usou o Flunt mas não validou a entidade?
+
             Name = name;
             EquipmentModel.Id = equipmentModel.Id;
             EquipmentStatesHistory = new List<EquipmentStateHistory>();

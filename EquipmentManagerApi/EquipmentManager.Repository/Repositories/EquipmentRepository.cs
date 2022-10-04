@@ -1,6 +1,7 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentManager.Repository
 {
@@ -21,12 +22,23 @@ namespace EquipmentManager.Repository
             return equipment;
         }
 
+        public Equipment CreateEquipment(Equipment equipment)
+        {
+            AppContext.Database.EnsureCreated();
+            var include = AppContext.EquipmentModel.Include(x => x.Equipments).First();
+            include.Equipments.Add(equipment);
+            AppContext.SaveChanges();
+            return equipment;
+        }
+
+
         public Equipment Get(string name)
         {
             AppContext.Database.EnsureCreated();
             var equipment = AppContext.Equipment
                        .Where(us => us.Name == name)
                        .FirstOrDefault<Equipment>();
+            if(equipment == null) return null;
             return equipment;
         }
 

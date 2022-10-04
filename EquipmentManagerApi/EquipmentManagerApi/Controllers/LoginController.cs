@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Application.Services;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -38,7 +38,7 @@ namespace EquipmentManagerApi.Controllers
                 }
                 var userDto = _mapper.Map<UserDto>(request);
                 var user = _loginService.VerifyUserPassword(userDto);
-                if (user == null) return NotFound(new { message = "User not found"});
+                if (user == null) return NotFound(new { message = "User not found" });
 
                 var userT = _mapper.Map<User>(user);
                 var token = _tokenService.GenerateToken(userT);

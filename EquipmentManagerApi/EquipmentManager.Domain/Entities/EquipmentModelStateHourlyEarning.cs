@@ -10,9 +10,8 @@ namespace EquipmentManager.Domain.Entities
         public EquipmentState EquipmentState { get; set; }
         public Decimal EarnedValueByHourState { get; set; }
 
-        public EquipmentModelStateHourlyEarning(string equipmentModelName)
+        public EquipmentModelStateHourlyEarning()
         {
-            EquipmentModel = new EquipmentModel(equipmentModelName);
             EquipmentState = new EquipmentState();
         }
     }

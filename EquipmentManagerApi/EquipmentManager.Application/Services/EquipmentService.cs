@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManager.Repository;
 
 namespace EquipmentManager.Application.Services
@@ -18,10 +18,10 @@ namespace EquipmentManager.Application.Services
 
         public EquipmentDto Create(EquipmentDto equipmentDto)
         {
-            var equipment = new Equipment(equipmentDto.Name, equipmentDto.EquipmentModel.Id);
+            var equipment = new Equipment(equipmentDto.Name);
             if (equipment.IsValid)
             {
-                _repository.Create(equipment);
+                _repository.CreateEquipment(equipment);
                 return _mapper.Map<EquipmentDto>(equipment);
             }
             foreach (var notification in equipment.Notifications)

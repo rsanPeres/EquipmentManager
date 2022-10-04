@@ -1,6 +1,6 @@
 ﻿using EquipmentManager.Domain.Enums;
 
-namespace EquipmentManager.Domain.Entities.Dtos
+namespace EquipmentManager.Application.Dtos
 {
     public class UserDto
     {

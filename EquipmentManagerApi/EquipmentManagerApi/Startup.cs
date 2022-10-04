@@ -1,6 +1,6 @@
 ﻿using EquipmentManager.Application.Services;
+using EquipmentManager.Application.Settings;
 using EquipmentManager.Domain.Interfaces.Repository;
-using EquipmentManager.Domain.Settings;
 using EquipmentManager.Infrastructure;
 using EquipmentManager.Repository;
 using EquipmentManager.Repository.Repositories;

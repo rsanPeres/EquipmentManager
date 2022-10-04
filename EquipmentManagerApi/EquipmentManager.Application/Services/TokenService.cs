@@ -1,5 +1,5 @@
-﻿using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Settings;
+﻿using EquipmentManager.Application.Settings;
+using EquipmentManager.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

@@ -28,6 +28,7 @@ namespace EquipmentManager.Repository.Repositories
             var user = AppContext.User
                        .Where(us => us.Cpf == cpf)
                        .FirstOrDefault<User>();
+            if(user == null)return null;
             return user;
         }
 

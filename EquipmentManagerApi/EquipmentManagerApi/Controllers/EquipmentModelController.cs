@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Application.Services;
-using EquipmentManager.Domain.Entities.Dtos;
-using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Requests;
+using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
 using Microsoft.AspNetCore.Mvc;
-using EquipmentManager.Domain.Entities;
 
 namespace EquipmentManagerApi.Controllers
 {

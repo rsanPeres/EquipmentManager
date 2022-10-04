@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Domain.Entities;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Responses;

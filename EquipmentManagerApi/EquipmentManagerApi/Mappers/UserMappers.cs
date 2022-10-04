@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Responses;
 

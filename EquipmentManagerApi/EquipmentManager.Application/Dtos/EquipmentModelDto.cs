@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EquipmentManager.Domain.Entities.Dtos
+namespace EquipmentManager.Application.Dtos
 {
     public class EquipmentModelDto
     {

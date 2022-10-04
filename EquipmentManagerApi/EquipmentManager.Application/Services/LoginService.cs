@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Repository.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Application.Services
 {

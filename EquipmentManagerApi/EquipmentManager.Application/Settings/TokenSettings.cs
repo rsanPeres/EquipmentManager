@@ -1,4 +1,4 @@
-﻿namespace EquipmentManager.Domain.Settings
+﻿namespace EquipmentManager.Application.Settings
 {
     public static class TokenSettings
     {

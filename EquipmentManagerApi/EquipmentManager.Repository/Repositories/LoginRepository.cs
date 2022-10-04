@@ -1,10 +1,5 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Repository.Repositories
 {
@@ -22,6 +17,7 @@ namespace EquipmentManager.Repository.Repositories
             var user = _appContext.User
                        .Where(us => us.UserName == userName)
                        .FirstOrDefault<User>();
+            if (user == null) return null;
             return user;
         }
     }

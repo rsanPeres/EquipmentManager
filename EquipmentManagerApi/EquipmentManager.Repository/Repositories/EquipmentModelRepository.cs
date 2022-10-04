@@ -31,17 +31,17 @@ namespace EquipmentManager.Repository.Repositories
         {
             AppContext.Database.EnsureCreated();
             var equipmentModel = AppContext.EquipmentModel
-                       .Where(us => us.Name == name)
+                       .Where(us => us.ModelName == name)
                        .FirstOrDefault<EquipmentModel>();
             return equipmentModel;
         }
 
         public EquipmentModel Update(string address, string name)
         {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.Name == name);
+            var equipmentModel = AppContext.EquipmentModel.First(p => p.ModelName == name);
             if (equipmentModel != null)
             {
-                AppContext.EquipmentModel.Where(p => p.Name == name).ToList().ForEach(p => p.Name = address);
+                AppContext.EquipmentModel.Where(p => p.ModelName == name).ToList().ForEach(p => p.setModelName(address));
                 AppContext.SaveChanges();
                 return equipmentModel;
             }
@@ -50,7 +50,7 @@ namespace EquipmentManager.Repository.Repositories
 
         public void Delete(string name)
         {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.Name == name);
+            var equipmentModel = AppContext.EquipmentModel.First(p => p.ModelName == name);
             if (equipmentModel != null)
             {
                 AppContext.EquipmentModel.Remove(equipmentModel);

@@ -10,9 +10,8 @@ namespace EquipmentManager.Domain.Entities
     public class EquipmentModel : Notifiable<Notification>
     {
 
-        //Todo: Setters públicos?? Isso já foi apontado anteriormente
-        public int Id { get; set; }
-        public string ModelName { get; set; }
+        public int Id { get; private set; }
+        public string ModelName { get; private set; }
         public ICollection<Equipment> Equipments { get; private set; }
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
         
@@ -26,6 +25,11 @@ namespace EquipmentManager.Domain.Entities
             ModelName = modelname;
             Equipments = new List<Equipment>();
             EquipmentsStateHourlyEarning = new List<EquipmentModelStateHourlyEarning>();
+        }
+
+        public void setModelName(string name)
+        {
+            this.ModelName = name;
         }
     }
 }

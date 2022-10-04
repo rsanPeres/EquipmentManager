@@ -47,7 +47,7 @@ namespace EquipmentManager.Repository
             var equipment = AppContext.Equipment.First(p => p.Name == name);
             if (equipment != null)
             {
-                AppContext.Equipment.Where(p => p.Name == name).ToList().ForEach(p => p.EquipmentModel.Name = address);
+                AppContext.Equipment.Where(p => p.Name == name).ToList().ForEach(p => p.setName(address));
                 AppContext.SaveChanges();
                 return equipment;
             }

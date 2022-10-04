@@ -4,15 +4,15 @@ namespace EquipmentManager.Domain.Entities
 {
     public class EquipmentModelStateHourlyEarning
     {
-        public int EquipmentModelId { get; set; }
-        public EquipmentModel EquipmentModel { get; set; }
-        public int EquipmentStateId { get; set; }
-        public EquipmentState EquipmentState { get; set; }
-        public Decimal EarnedValueByHourState { get; set; }
+        public int EquipmentModelId { get; private set; }
+        public EquipmentModel EquipmentModel { get; private set; }
+        public int EquipmentStateId { get; private set; }
+        public EquipmentState EquipmentState { get; private set; }
+        public Decimal EarnedValueByHourState { get; private set; }
 
-        public EquipmentModelStateHourlyEarning()
+        public EquipmentModelStateHourlyEarning(string name, string color)
         {
-            EquipmentState = new EquipmentState();
+            EquipmentState = new EquipmentState(name, color);
         }
     }
 }

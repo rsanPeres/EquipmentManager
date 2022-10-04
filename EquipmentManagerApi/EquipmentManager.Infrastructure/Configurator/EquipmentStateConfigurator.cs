@@ -23,7 +23,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .Property(p => p.Id)
                 .HasColumnName("Id_EquipmentState");
             builder
-                .Property(p => p.Name).HasColumnName("Name_Equipment")
+                .Property(p => p.StateName).HasColumnName("Name_Equipment")
                 .HasColumnType("varchar(50)").IsRequired();
 
             builder.Ignore(x => x.Notifications);

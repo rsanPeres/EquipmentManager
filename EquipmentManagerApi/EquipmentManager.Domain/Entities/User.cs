@@ -8,7 +8,7 @@ namespace EquipmentManager.Domain.Entities
         public int Id { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
-        public RoleNames Role { get; set; }
+        public RoleNames Role { get; private set; }
         public string Cpf { get; private set; }
 
         public User(string userName, string password, RoleNames role, string cpf)
@@ -31,5 +31,17 @@ namespace EquipmentManager.Domain.Entities
             Cpf = cpf;
         }
 
+        public void setEmployeeRole(RoleNames role)
+        {
+            switch (role)
+            {
+                case RoleNames.Manager:
+                    this.Role = RoleNames.Manager;
+                    break;
+                default:
+                    this.Role = RoleNames.Employee;
+                    break;
+            }
+        }
     }
 }

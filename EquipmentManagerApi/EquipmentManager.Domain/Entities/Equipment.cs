@@ -5,8 +5,8 @@ namespace EquipmentManager.Domain.Entities
     public class Equipment : Notifiable<Notification>
     {
         public int Id { get; private set; }
-        public string Name { get; set; }
-        public EquipmentModel EquipmentModel { get; set; }
+        public string Name { get; private set; }
+        public EquipmentModel EquipmentModel { get; private set; }
         public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
         public ICollection<EquipmentPositionHistory> EquipmentPositionHistories { get; private set; }
 
@@ -19,6 +19,11 @@ namespace EquipmentManager.Domain.Entities
             Name = name;
             EquipmentStatesHistory = new List<EquipmentStateHistory>();
             EquipmentPositionHistories = new List<EquipmentPositionHistory>();
+        }
+
+        public void setName(string name)
+        {
+            this.Name = name;
         }
     }
 }

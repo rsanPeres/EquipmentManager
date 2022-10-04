@@ -7,7 +7,7 @@ namespace EquipmentManager.Application.Services
     public class LoginService
     {
         private readonly LoginRepository _repository;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public LoginService(LoginRepository repository, IMapper mapper)
         {

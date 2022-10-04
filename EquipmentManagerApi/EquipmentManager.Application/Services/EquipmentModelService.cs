@@ -7,8 +7,8 @@ namespace EquipmentManager.Application.Services
 {
     public class EquipmentModelService
     {
-        private EquipmentModelRepository _repository;
-        private IMapper _mapper;
+        private readonly EquipmentModelRepository _repository;
+        private readonly IMapper _mapper;
 
         public EquipmentModelService(IMapper mapper, EquipmentModelRepository repository)
         {

@@ -7,8 +7,8 @@ namespace EquipmentManager.Application.Services
 {
     public class UserService
     {
-        private UserRepository _repository;
-        private IMapper _mapper;
+        private readonly UserRepository _repository;
+        private readonly IMapper _mapper;
 
         public UserService(IMapper mapper, UserRepository repository)
         {

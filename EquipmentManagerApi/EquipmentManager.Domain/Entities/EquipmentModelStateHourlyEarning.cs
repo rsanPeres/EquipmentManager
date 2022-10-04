@@ -2,7 +2,7 @@
 
 namespace EquipmentManager.Domain.Entities
 {
-    public class EquipmentModelStateHourlyEarning : Notifiable<Notification>
+    public class EquipmentModelStateHourlyEarning
     {
         public int EquipmentModelId { get; set; }
         public EquipmentModel EquipmentModel { get; set; }

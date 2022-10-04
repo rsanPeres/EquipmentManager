@@ -12,14 +12,18 @@ namespace EquipmentManager.Domain.Entities
 
         //Todo: Setters públicos?? Isso já foi apontado anteriormente
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string ModelName { get; set; }
         public ICollection<Equipment> Equipments { get; private set; }
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
         
 
-        public EquipmentModel(string name)
+        public EquipmentModel(string modelname)
         {
-            Name = name;
+            if (string.IsNullOrEmpty(modelname))
+            {
+                AddNotification("ModelName", "Invalid modelName");
+            }
+            ModelName = modelname;
             Equipments = new List<Equipment>();
             EquipmentsStateHourlyEarning = new List<EquipmentModelStateHourlyEarning>();
         }

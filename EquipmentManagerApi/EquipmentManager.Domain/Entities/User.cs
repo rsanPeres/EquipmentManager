@@ -13,9 +13,21 @@ namespace EquipmentManager.Domain.Entities
 
         public User(string userName, string password, RoleNames role, string cpf)
         {
+            if (string.IsNullOrEmpty(userName))
+            {
+                AddNotification("UserName", "Invalid userName");
+            }
             UserName = userName;
+            if (string.IsNullOrEmpty(password))
+            {
+                AddNotification("Password", "Invalid password");
+            }
             Password = password;
             Role = role;
+            if (string.IsNullOrEmpty(cpf))
+            {
+                AddNotification("CPF", "Invalid cpf");
+            }
             Cpf = cpf;
         }
 

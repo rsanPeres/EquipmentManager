@@ -15,5 +15,19 @@ namespace EquipmentManager.Domain.Entities
         public string Longitude { get; private set; }
         public int EquipmentId { get; private set; }
         public Equipment Equipment { get; private set; }
+
+        public EquipmentPositionHistory(string latitude, string longitude)
+        {
+            if (string.IsNullOrEmpty(latitude))
+            {
+                AddNotification("Latitude", "Invalid latitude");
+            }
+            Latitude = latitude;
+            if (string.IsNullOrEmpty(longitude))
+            {
+                AddNotification("Longitude", "Invalid longitude");
+            }
+            Longitude = longitude;
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Entities
 {
-    public class EquipmentStateHistory : Notifiable<Notification>
+    public class EquipmentStateHistory
     {
         public int Id { get; private set; }
         public DateTime ReportedStatusStartDate { get; private set; }

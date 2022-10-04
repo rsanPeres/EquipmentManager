@@ -12,9 +12,10 @@ namespace EquipmentManager.Domain.Entities
 
         public Equipment(string name)
         {
-
-            //Todo: Usou o Flunt mas não validou a entidade?
-
+            if (string.IsNullOrEmpty(name))
+            {
+                AddNotification("Name", "Invalid name");
+            }
             Name = name;
             EquipmentStatesHistory = new List<EquipmentStateHistory>();
             EquipmentPositionHistories = new List<EquipmentPositionHistory>();

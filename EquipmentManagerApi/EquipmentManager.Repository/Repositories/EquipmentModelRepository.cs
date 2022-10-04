@@ -1,6 +1,7 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Repository.Repositories
 {
-    public class EquipmentModelRepository : IEquipmentRepository
+    public class EquipmentModelRepository
     {
         public ApplicationContext AppContext;
 

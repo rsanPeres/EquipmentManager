@@ -11,7 +11,11 @@ namespace EquipmentManager.Domain.Entities.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int EquipmentModelId { get; set; }
         public EquipmentModel EquipmentModel { get; set; }
+
+        public EquipmentDto()
+        {
+            EquipmentModel = new EquipmentModel(Name);
+        }
     }
 }

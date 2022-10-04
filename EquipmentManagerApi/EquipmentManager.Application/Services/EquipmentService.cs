@@ -18,10 +18,10 @@ namespace EquipmentManager.Application.Services
 
         public EquipmentDto Create(EquipmentDto equipmentDto)
         {
-            var equipment = new Equipment(equipmentDto.Name, equipmentDto.EquipmentModel.Id);
+            var equipment = new Equipment(equipmentDto.Name);
             if (equipment.IsValid)
             {
-                _repository.Create(equipment);
+                _repository.CreateEquipment(equipment, equipmentDto.EquipmentModel.Id);
                 return _mapper.Map<EquipmentDto>(equipment);
             }
             foreach (var notification in equipment.Notifications)

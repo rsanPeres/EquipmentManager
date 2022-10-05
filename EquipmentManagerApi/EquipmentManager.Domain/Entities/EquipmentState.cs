@@ -1,9 +1,5 @@
 ﻿using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Flunt.Validations;
 
 namespace EquipmentManager.Domain.Entities
 {
@@ -17,16 +13,21 @@ namespace EquipmentManager.Domain.Entities
 
         public EquipmentState(string stateName, string equipmentColor)
         {
-            if (string.IsNullOrEmpty(stateName))
-            {
-                AddNotification("Name", "Invalid name");
-            }
+            Validate(stateName, equipmentColor);
+            if (!IsValid)
+                return;
+
             StateName = stateName;
-            if (string.IsNullOrEmpty(equipmentColor))
-            {
-                AddNotification("EquipmentColor", "Invalid color");
-            }
             EquipmentColor = equipmentColor;
+        }
+
+        public void Validate(string stateName, string equipmentColor)
+        {
+            AddNotifications(new Contract<Notification>()
+               .IsNotNullOrEmpty(stateName, "invalid_userName", "Invalid userName")
+               .IsGreaterThan(stateName.Length, 2, "invalid_size_userName", "Invalid size userName")
+               .IsNotNullOrEmpty(equipmentColor, "invalid_password", "Invalid password")
+               .IsGreaterThan(equipmentColor.Length, 3, "invalid_size_password", "Invalid size password"));
         }
     }
 }

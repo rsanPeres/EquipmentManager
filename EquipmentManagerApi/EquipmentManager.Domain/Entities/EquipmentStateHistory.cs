@@ -1,12 +1,4 @@
-﻿using Flunt.Notifications;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EquipmentManager.Domain.Entities
+﻿namespace EquipmentManager.Domain.Entities
 {
     public class EquipmentStateHistory
     {

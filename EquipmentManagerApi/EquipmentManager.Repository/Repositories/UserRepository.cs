@@ -37,7 +37,7 @@ namespace EquipmentManager.Repository.Repositories
             var user = AppContext.User.First(p => p.Cpf == cpf);
             if (user != null)
             {
-                AppContext.User.Where(p => p.Cpf == cpf).ToList().ForEach(p => p.setEmployeeRole(name));
+                AppContext.User.Where(p => p.Cpf == cpf).ToList().ForEach(p => p.SetEmployeeRole(name));
                 AppContext.SaveChanges();
                 return user;
             }

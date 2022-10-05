@@ -1,5 +1,6 @@
 ﻿using EquipmentManager.Domain.Enums;
 using Flunt.Notifications;
+using Flunt.Validations;
 
 namespace EquipmentManager.Domain.Entities
 {
@@ -13,25 +14,17 @@ namespace EquipmentManager.Domain.Entities
 
         public User(string userName, string password, RoleNames role, string cpf)
         {
-            if (string.IsNullOrEmpty(userName))
-            {
-                AddNotification("UserName", "Invalid userName");
-            }
+            Validate(userName, password, role, cpf);
+            if (!IsValid)
+                return;
+
             UserName = userName;
-            if (string.IsNullOrEmpty(password))
-            {
-                AddNotification("Password", "Invalid password");
-            }
             Password = password;
             Role = role;
-            if (string.IsNullOrEmpty(cpf))
-            {
-                AddNotification("CPF", "Invalid cpf");
-            }
             Cpf = cpf;
         }
 
-        public void setEmployeeRole(RoleNames role)
+        public void SetEmployeeRole(RoleNames role)
         {
             switch (role)
             {
@@ -42,6 +35,18 @@ namespace EquipmentManager.Domain.Entities
                     this.Role = RoleNames.Employee;
                     break;
             }
+        }
+
+        public void Validate(string userName, string password, RoleNames role, string cpf)
+        {
+            AddNotifications(new Contract<Notification>()
+               .IsNotNullOrEmpty(userName, "invalid_userName", "Invalid userName")
+               .IsGreaterThan(userName.Length, 2, "invalid_size_userName", "Invalid size userName")
+               .IsNotNullOrEmpty(password, "invalid_password", "Invalid password")
+               .IsGreaterThan(password.Length, 8, "invalid_size_password", "Invalid size password")
+               .IsNotNull(role, "invalid_role", "Invalid role")
+               .IsNotNullOrEmpty(cpf, "invalid_cpf", "Invalid cpf")
+               .IsGreaterThan(cpf.Length, 11, "invalid_size_cpf", "Invalid size cpf"));
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Flunt.Validations;
 
 namespace EquipmentManager.Domain.Entities
 {
@@ -18,16 +14,21 @@ namespace EquipmentManager.Domain.Entities
 
         public EquipmentPositionHistory(string latitude, string longitude)
         {
-            if (string.IsNullOrEmpty(latitude))
-            {
-                AddNotification("Latitude", "Invalid latitude");
-            }
+            Validate(longitude, latitude);
+            if (!IsValid)
+                return;
+
             Latitude = latitude;
-            if (string.IsNullOrEmpty(longitude))
-            {
-                AddNotification("Longitude", "Invalid longitude");
-            }
             Longitude = longitude;
+        }
+
+        public void Validate(string longitude, string latitude)
+        {
+            AddNotifications(new Contract<Notification>()
+               .IsNotNullOrEmpty(longitude, "invalid_userName", "Invalid userName")
+               .IsGreaterThan(longitude.Length, 10, "invalid_size_userName", "Invalid size userName")
+               .IsNotNullOrEmpty(latitude, "invalid_password", "Invalid password")
+               .IsGreaterThan(latitude.Length, 10, "invalid_size_password", "Invalid size password"));
         }
     }
 }

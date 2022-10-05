@@ -1,6 +1,4 @@
-﻿using Flunt.Notifications;
-
-namespace EquipmentManager.Domain.Entities
+﻿namespace EquipmentManager.Domain.Entities
 {
     public class EquipmentModelStateHourlyEarning
     {

@@ -50,7 +50,7 @@ namespace BreakevenStoneApi
             services.AddScoped<UserService, UserService>();
             services.AddScoped<LoginService, LoginService>();
             services.AddScoped<TokenService, TokenService>();
-            services.AddScoped<EquipmentModelService, EquipmentModelService>();
+            services.AddScoped<sEquipmentModelService, EquipmentModelService>();
             services.AddScoped<EquipmentRepository, EquipmentRepository>();
             services.AddScoped<EquipmentModelRepository, EquipmentModelRepository>();
             services.AddScoped<UserRepository, UserRepository>();

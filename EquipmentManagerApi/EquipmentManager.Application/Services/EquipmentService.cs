@@ -1,39 +1,47 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Repository;
+using EquipmentManager.Domain.Interfaces.Repository;
+using Flunt.Notifications;
 
 namespace EquipmentManager.Application.Services
 {
-    public class EquipmentService
+    public class EquipmentService : Notifiable<Notification>
     {
-        private readonly EquipmentRepository _repository;
+        private readonly IEquipmentRepository _equipmentRepository;
+        private readonly IEquipmentModelRepository _equipmentModelRepository;
         private readonly IMapper _mapper;
-
-        public EquipmentService(IMapper mapper, EquipmentRepository repository)
+        public EquipmentService(IEquipmentRepository equipmentRepository, IEquipmentModelRepository equipmentModelRepository, IMapper mapper)
         {
+            _equipmentRepository = equipmentRepository;
+            _equipmentModelRepository = equipmentModelRepository;
             _mapper = mapper;
-            _repository = repository;
         }
 
-        public EquipmentDto Create(EquipmentDto equipmentDto)
+        public void Create(EquipmentDto equipmentDto)
         {
-            var equipment = new Equipment(equipmentDto.Name);
-            if (equipment.IsValid)
+            var equipmentModel = _equipmentModelRepository.Get(equipmentDto.EquipmentModel.Id);
+            var equipment = new Equipment(equipmentDto.Name, equipmentModel);
+            AddNotifications(equipment);
+
+            if (!IsValid)
+                return;
+
+            _equipmentRepository.Create(equipment);
+            _equipmentRepository.SaveChanges();
+        }
+
+        public EquipmentDto Get(int id)
+        {
+            var equipment = _equipmentRepository.Get(id);
+
+            if (equipment is null)
             {
-                _repository.CreateEquipment(equipment);
-                return _mapper.Map<EquipmentDto>(equipment);
+                AddNotification("equipment_isnull", "Equipment not found");
+                return null;
             }
-            foreach (var notification in equipment.Notifications)
-                Console.WriteLine($"{notification.Key} : {notification.Message}");
-            return null;
-        }
 
-        public EquipmentDto Get(EquipmentDto equipmentDto)
-        {
-            var equipment = _repository.Get(equipmentDto.Name);
-            if (equipment != null) return _mapper.Map<EquipmentDto>(equipment);
-            return null;
+            return _mapper.Map<EquipmentDto>(equipment);
         }
 
         public List<EquipmentDto> GetMany()
@@ -43,16 +51,25 @@ namespace EquipmentManager.Application.Services
             return null;
         }
 
-        public EquipmentDto Update(EquipmentDto equipmentDto)
+        public void Update(EquipmentDto equipmentDto)
         {
-            var equipment = _repository.Update(equipmentDto.Id, equipmentDto.Name);
-            if (equipment != null) return _mapper.Map<EquipmentDto>(equipment);
-            return null;
+            var equipmentModel = _equipmentModelRepository.Get(equipmentDto.EquipmentModel.Id);
+            var equipment = _equipmentRepository.Get(equipmentDto.Id);
+            equipment.Update(equipmentDto.Name, equipmentModel);
+            AddNotifications(equipment);
+
+            if (!IsValid)
+                return;
+
+            _equipmentRepository.Update(equipment);
+            _equipmentRepository.SaveChanges();
+
         }
 
-        public void Delete(EquipmentDto equipmentDto)
+        public void Delete(int id)
         {
-            _repository.Delete(equipmentDto.Name);
+            _equipmentRepository.Delete(id);
+            _equipmentRepository.SaveChanges();
         }
     }
 }

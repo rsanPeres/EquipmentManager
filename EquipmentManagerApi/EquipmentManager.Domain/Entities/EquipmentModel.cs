@@ -14,15 +14,10 @@ namespace EquipmentManager.Domain.Entities
         public string ModelName { get; private set; }
         public ICollection<Equipment> Equipments { get; private set; }
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
-        
 
-        public EquipmentModel(string modelname)
+        public EquipmentModel(string modelName)
         {
-            if (string.IsNullOrEmpty(modelname))
-            {
-                AddNotification("ModelName", "Invalid modelName");
-            }
-            ModelName = modelname;
+            ModelName = modelName;
             Equipments = new List<Equipment>();
             EquipmentsStateHourlyEarning = new List<EquipmentModelStateHourlyEarning>();
         }

@@ -41,7 +41,7 @@ namespace EquipmentManagerApi.Mappers
 
         private void UpdateRequestToDto()
         {
-            CreateMap<UpdateEquipmentRequest, EquipmentDto>()
+            CreateMap<EquipmentDto, UpdateEquipmentRequest>()
                 .ReverseMap();
         }
 

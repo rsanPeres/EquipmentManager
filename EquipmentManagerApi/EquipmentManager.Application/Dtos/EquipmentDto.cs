@@ -16,7 +16,7 @@ namespace EquipmentManager.Application.Dtos
 
         public EquipmentDto()
         {
-            EquipmentModel = new EquipmentModel(Name);
+        
         }
     }
 }

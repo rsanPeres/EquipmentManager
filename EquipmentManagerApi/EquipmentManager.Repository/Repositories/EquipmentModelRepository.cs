@@ -36,12 +36,12 @@ namespace EquipmentManager.Repository.Repositories
             return equipmentModel;
         }
 
-        public EquipmentModel Update(string address, string name)
+        public EquipmentModel Update(int id, string modelName)
         {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.ModelName == name);
+            var equipmentModel = AppContext.EquipmentModel.First(p => p.Id == id);
             if (equipmentModel != null)
             {
-                AppContext.EquipmentModel.Where(p => p.ModelName == name).ToList().ForEach(p => p.setModelName(address));
+                AppContext.EquipmentModel.Where(p => p.Id == id).ToList().ForEach(p => p.setModelName(modelName));
                 AppContext.SaveChanges();
                 return equipmentModel;
             }
@@ -50,7 +50,7 @@ namespace EquipmentManager.Repository.Repositories
 
         public void Delete(string name)
         {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.ModelName == name);
+            var equipmentModel = AppContext.EquipmentModel.FirstOrDefault(p => p.ModelName == name);
             if (equipmentModel != null)
             {
                 AppContext.EquipmentModel.Remove(equipmentModel);

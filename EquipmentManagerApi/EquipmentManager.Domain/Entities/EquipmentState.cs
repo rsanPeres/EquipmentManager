@@ -15,18 +15,18 @@ namespace EquipmentManager.Domain.Entities
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
         public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
 
-        public EquipmentState(string name, string color)
+        public EquipmentState(string stateName, string equipmentColor)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(stateName))
             {
                 AddNotification("Name", "Invalid name");
             }
-            StateName = name;
-            if (string.IsNullOrEmpty(color))
+            StateName = stateName;
+            if (string.IsNullOrEmpty(equipmentColor))
             {
                 AddNotification("EquipmentColor", "Invalid color");
             }
-            EquipmentColor = color;
+            EquipmentColor = equipmentColor;
         }
     }
 }

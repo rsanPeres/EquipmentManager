@@ -42,7 +42,7 @@ namespace EquipmentManagerApi.Controllers
 
                 var userT = _mapper.Map<User>(user);
                 var token = _tokenService.GenerateToken(userT);
-
+                
                 var ret = _mapper.Map<LoginUserResponse>(user);
                 ret.Token = token;
                 var response = new ApiResponse<LoginUserResponse>()

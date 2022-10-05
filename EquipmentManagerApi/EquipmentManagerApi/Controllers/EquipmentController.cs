@@ -57,6 +57,30 @@ namespace EquipmentManagerApi.Controllers
             }
         }
 
+        [Route("getMany")]
+        [HttpGet]
+        public IActionResult GetMany()
+        {
+            try
+            {
+                var equipment = _service.GetMany();
+
+                
+               
+                return Ok(equipment);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateEquipmentRequest request)
         {

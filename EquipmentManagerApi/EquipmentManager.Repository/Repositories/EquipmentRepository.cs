@@ -25,7 +25,10 @@ namespace EquipmentManager.Repository
         public Equipment CreateEquipment(Equipment equipment)
         {
             AppContext.Database.EnsureCreated();
-            var include = AppContext.EquipmentModel.Include(x => x.Equipments).First();
+            var include = AppContext.EquipmentModel
+                /*.Where(x => x.ModelName == equipment.EquipmentModel.ModelName)*/
+                .Include(x => x.Equipments).FirstOrDefault();
+            if (include == null) return null;
             include.Equipments.Add(equipment);
             AppContext.SaveChanges();
             return equipment;
@@ -42,12 +45,18 @@ namespace EquipmentManager.Repository
             return equipment;
         }
 
-        public Equipment Update(string address, string name)
+        public List<Equipment> GetMany()
         {
-            var equipment = AppContext.Equipment.First(p => p.Name == name);
+            var equipments = AppContext.Equipment.ToList();
+            return equipments;
+        }
+
+        public Equipment Update(int id, string name)
+        {
+            var equipment = AppContext.Equipment.First(p => p.Id == id);
             if (equipment != null)
             {
-                AppContext.Equipment.Where(p => p.Name == name).ToList().ForEach(p => p.setName(address));
+                AppContext.Equipment.Where(p => p.Id == id).ToList().ForEach(p => p.setName(name));
                 AppContext.SaveChanges();
                 return equipment;
             }

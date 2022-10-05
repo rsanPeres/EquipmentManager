@@ -19,6 +19,7 @@ namespace EquipmentManagerApi.Mappers
             GetResponseToDto();
             UpdateResponseToDto();
             DeleteResponseToDto();
+            DeleteRequestToresponse();
         }
 
         private void EquipmentModelToDto()
@@ -72,6 +73,12 @@ namespace EquipmentManagerApi.Mappers
         private void DeleteResponseToDto()
         {
             CreateMap<EquipmentModelDto, DeleteEquipmentModelResponse>()
+                .ReverseMap();
+        }
+
+        private void DeleteRequestToresponse()
+        {
+            CreateMap<DeleteEquipmentModelRequest, DeleteEquipmentModelResponse>()
                 .ReverseMap();
         }
     }

@@ -21,6 +21,7 @@ namespace EquipmentManagerApi.Mappers
             DeleteResponseToDto();
             LoginRequestToDto();
             LoginResponseToDto();
+            DeleteResponseToRequest();
         }
 
         private void UserToDto()
@@ -86,6 +87,12 @@ namespace EquipmentManagerApi.Mappers
         private void LoginResponseToDto()
         {
             CreateMap<UserDto, LoginUserResponse>()
+                .ReverseMap();
+        }
+
+        private void DeleteResponseToRequest()
+        {
+            CreateMap<DeleteUserRequest, DeleteUserResponse>()
                 .ReverseMap();
         }
     }

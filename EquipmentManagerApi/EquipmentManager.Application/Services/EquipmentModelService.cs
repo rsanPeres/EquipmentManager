@@ -18,7 +18,7 @@ namespace EquipmentManager.Application.Services
 
         public EquipmentModelDto Create(EquipmentModelDto equipmentDto)
         {
-            var equipmentModel = new EquipmentModel(equipmentDto.Name);
+            var equipmentModel = new EquipmentModel(equipmentDto.ModelName);
             if (equipmentModel.IsValid)
             {
                 _repository.Create(equipmentModel);
@@ -31,21 +31,21 @@ namespace EquipmentManager.Application.Services
 
         public EquipmentModelDto Get(EquipmentModelDto equipmentModelDto)
         {
-            var equipmentModel = _repository.Get(equipmentModelDto.Name);
+            var equipmentModel = _repository.Get(equipmentModelDto.ModelName);
             if (equipmentModel != null) return _mapper.Map<EquipmentModelDto>(equipmentModel);
             return null;
         }
 
         public EquipmentModelDto Update(EquipmentModelDto equipmentModelDto)
         {
-            var equipmentModel = _repository.Update(equipmentModelDto.Name, equipmentModelDto.Name);
+            var equipmentModel = _repository.Update(equipmentModelDto.Id, equipmentModelDto.ModelName);
             if (equipmentModel != null) return _mapper.Map<EquipmentModelDto>(equipmentModel);
             return null;
         }
 
         public void Delete(EquipmentModelDto equipmentModelDto)
         {
-            _repository.Delete(equipmentModelDto.Name);
+            _repository.Delete(equipmentModelDto.ModelName);
         }
     }
 }

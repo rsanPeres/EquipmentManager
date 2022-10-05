@@ -36,9 +36,16 @@ namespace EquipmentManager.Application.Services
             return null;
         }
 
+        public List<EquipmentDto> GetMany()
+        {
+            var equipment = _repository.GetMany();
+            if (equipment != null) return _mapper.Map<List<EquipmentDto>>(equipment);
+            return null;
+        }
+
         public EquipmentDto Update(EquipmentDto equipmentDto)
         {
-            var equipment = _repository.Update(equipmentDto.Name, equipmentDto.Name);
+            var equipment = _repository.Update(equipmentDto.Id, equipmentDto.Name);
             if (equipment != null) return _mapper.Map<EquipmentDto>(equipment);
             return null;
         }

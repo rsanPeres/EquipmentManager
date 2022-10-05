@@ -3,7 +3,7 @@ using EquipmentManager.Infrastructure;
 
 namespace EquipmentManager.Repository.Repositories
 {
-    public class LoginRepository
+    public class LoginRepository : ILoginRepository
     {
         public ApplicationContext _appContext;
 
@@ -17,7 +17,6 @@ namespace EquipmentManager.Repository.Repositories
             var user = _appContext.User
                        .Where(us => us.UserName == userName)
                        .FirstOrDefault<User>();
-            if (user == null) return null;
             return user;
         }
     }

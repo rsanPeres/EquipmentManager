@@ -10,52 +10,41 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Repository.Repositories
 {
-    public class EquipmentModelRepository
+    public class EquipmentModelRepository : IEquipmentModelRepository 
     {
-        public ApplicationContext AppContext;
+        private readonly ApplicationContext _appContext;
 
         public EquipmentModelRepository(ApplicationContext appContext)
         {
-            AppContext = appContext;
+            _appContext = appContext;
         }
 
         public EquipmentModel Create(EquipmentModel equipmentModel)
         {
-            AppContext.Database.EnsureCreated();
-            AppContext.EquipmentModel.Add(equipmentModel);
-            AppContext.SaveChanges();
+            _appContext.Add(equipmentModel);
             return equipmentModel;
         }
 
-        public EquipmentModel Get(string name)
+        public EquipmentModel Update(EquipmentModel equipmentModel)
         {
-            AppContext.Database.EnsureCreated();
-            var equipmentModel = AppContext.EquipmentModel
-                       .Where(us => us.ModelName == name)
-                       .FirstOrDefault<EquipmentModel>();
+            _appContext.Update(equipmentModel);
             return equipmentModel;
         }
 
-        public EquipmentModel Update(int id, string modelName)
+        public EquipmentModel Get(int id)
         {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.Id == id);
-            if (equipmentModel != null)
-            {
-                AppContext.EquipmentModel.Where(p => p.Id == id).ToList().ForEach(p => p.setModelName(modelName));
-                AppContext.SaveChanges();
-                return equipmentModel;
-            }
-            return null;
+            var equipmentModel = _appContext.Find<EquipmentModel>(id);
+            return equipmentModel;
         }
 
-        public void Delete(string name)
+        public void Delete(int id)
         {
-            var equipmentModel = AppContext.EquipmentModel.FirstOrDefault(p => p.ModelName == name);
-            if (equipmentModel != null)
-            {
-                AppContext.EquipmentModel.Remove(equipmentModel);
-                AppContext.SaveChanges();
-            }
+            var equipmentModel = Get(id);
+            _appContext.Remove<EquipmentModel>(equipmentModel);
+        }
+        public void SaveChanges()
+        {
+            _appContext.SaveChanges();
         }
     }
 }

@@ -7,51 +7,39 @@ namespace EquipmentManager.Repository.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public ApplicationContext AppContext;
+        private readonly ApplicationContext _appContext;
 
         public UserRepository(ApplicationContext appContext)
         {
-            AppContext = appContext;
+            _appContext = appContext;
         }
 
         public User Create(User user)
         {
-            AppContext.Database.EnsureCreated();
-            AppContext.User.Add(user);
-            AppContext.SaveChanges();
+            _appContext.User.Add(user);
             return user;
         }
 
         public User Get(string cpf)
         {
-            AppContext.Database.EnsureCreated();
-            var user = AppContext.User
-                       .Where(us => us.Cpf == cpf)
-                       .FirstOrDefault<User>();
-            if(user == null)return null;
+            var user = _appContext.User.Find(cpf);
             return user;
         }
 
-        public User Update(string cpf, RoleNames name)
+        public User Update(User user)
         {
-            var user = AppContext.User.First(p => p.Cpf == cpf);
-            if (user != null)
-            {
-                AppContext.User.Where(p => p.Cpf == cpf).ToList().ForEach(p => p.SetEmployeeRole(name));
-                AppContext.SaveChanges();
-                return user;
-            }
-            return null;
+            _appContext.Update(user);
+            return user;
         }
 
         public void Delete(string cpf)
         {
-            var user = AppContext.User.First(p => p.Cpf == cpf);
-            if (user != null)
-            {
-                AppContext.User.Remove(user);
-                AppContext.SaveChanges();
-            }
+            var user = Get(cpf);
+            _appContext.Remove<User>(user);
+        }
+        public void SaveChanges()
+        {
+            _appContext.SaveChanges();
         }
     }
 }

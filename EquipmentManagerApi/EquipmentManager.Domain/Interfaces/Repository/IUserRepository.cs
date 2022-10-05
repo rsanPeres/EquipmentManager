@@ -7,7 +7,7 @@ namespace EquipmentManager.Domain.Interfaces.Repository
     {
         public User Get(string cpf);
         public User Create(User user);
-        public User Update(string name, RoleNames role);
+        public User Update(User user);
         public void Delete(string cpf);
     }
 }

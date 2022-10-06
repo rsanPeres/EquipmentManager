@@ -33,5 +33,37 @@ namespace EquipmentManager.Tests.Domain.Entities
             Assert.False(equipment.IsValid);
             Assert.Null(equipment.Name);
         }
+
+        [Fact]
+        public void DadoUmNomeValido_DeveAtribuirPropriedade()
+        {
+            var equipmentModel = _fixture.Create<EquipmentModel>();
+            var name = _fixture.Create<string>();
+            var equipment = new Equipment(name, equipmentModel);
+
+            Assert.True(equipment.IsValid);
+        }
+
+        [Fact]
+        public void DadoUmEquipmentModel_DeveAtribuirPropriedade()
+        {
+            EquipmentModel equipmentModel = _fixture.Create<EquipmentModel>();
+            var name = _fixture.Create<string>();
+            var equipment = new Equipment(name, equipmentModel);
+            
+            Assert.True(equipment.IsValid);
+            Assert.NotEmpty(equipment.Name);
+        }
+
+        [Fact]
+        public void DadoUmEquipmentModelNull_NaoDeveAtribuirPropriedade()
+        {
+            EquipmentModel equipmentModel = null;
+            var name = _fixture.Create<string>();
+            var equipment = new Equipment(name, equipmentModel);
+
+            Assert.False(equipment.IsValid);
+            Assert.Null(equipment.Name);
+        }
     }
 }

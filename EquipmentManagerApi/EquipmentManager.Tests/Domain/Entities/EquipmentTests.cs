@@ -7,9 +7,9 @@ namespace EquipmentManager.Tests.Domain.Entities
     public class EquipmentTests
     {
         private readonly Fixture _fixture;
-        public EquipmentTests(Fixture fixture)
+        public EquipmentTests()
         {
-            _fixture = fixture;
+            _fixture = new Fixture();
         }
 
         [Fact]

@@ -5,7 +5,7 @@ namespace EquipmentManager.Repository.Repositories
 {
     public class LoginRepository : ILoginRepository
     {
-        public ApplicationContext _appContext;
+        private readonly ApplicationContext _appContext;
 
         public LoginRepository(ApplicationContext appContext)
         {

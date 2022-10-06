@@ -19,21 +19,25 @@ namespace EquipmentManager.Repository.Repositories
             _appContext = appContext;
         }
 
-        public EquipmentModel Create(EquipmentModel equipmentModel)
+        public void Create(EquipmentModel equipmentModel)
         {
             _appContext.Add(equipmentModel);
-            return equipmentModel;
         }
 
-        public EquipmentModel Update(EquipmentModel equipmentModel)
+        public void Update(EquipmentModel equipmentModel)
         {
             _appContext.Update(equipmentModel);
-            return equipmentModel;
         }
 
         public EquipmentModel Get(int id)
         {
             var equipmentModel = _appContext.Find<EquipmentModel>(id);
+            return equipmentModel;
+        }
+
+        public List<EquipmentModel> GetMany()
+        {
+            var equipmentModel = _appContext.EquipmentModel.ToList();
             return equipmentModel;
         }
 

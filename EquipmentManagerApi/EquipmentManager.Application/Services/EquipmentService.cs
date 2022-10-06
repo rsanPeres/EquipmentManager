@@ -46,9 +46,12 @@ namespace EquipmentManager.Application.Services
 
         public List<EquipmentDto> GetMany()
         {
-            var equipment = _repository.GetMany();
-            if (equipment != null) return _mapper.Map<List<EquipmentDto>>(equipment);
-            return null;
+            var equipment = _equipmentRepository.GetMany();
+            if (equipment is null)
+            {
+                AddNotification("equipment_isEmpty", "Equipment list is empty");
+            }
+            return _mapper.Map<List<EquipmentDto>>(equipment);
         }
 
         public void Update(EquipmentDto equipmentDto)

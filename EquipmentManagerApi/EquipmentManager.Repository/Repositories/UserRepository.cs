@@ -14,10 +14,9 @@ namespace EquipmentManager.Repository.Repositories
             _appContext = appContext;
         }
 
-        public User Create(User user)
+        public void Create(User user)
         {
             _appContext.User.Add(user);
-            return user;
         }
 
         public User Get(string cpf)
@@ -26,10 +25,15 @@ namespace EquipmentManager.Repository.Repositories
             return user;
         }
 
-        public User Update(User user)
+        public List<User> GetMany()
+        {
+            var user = _appContext.User.ToList();
+            return user;
+        }
+
+        public void Update(User user)
         {
             _appContext.Update(user);
-            return user;
         }
 
         public void Delete(string cpf)

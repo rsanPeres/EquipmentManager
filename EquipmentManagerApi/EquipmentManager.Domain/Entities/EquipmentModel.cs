@@ -27,6 +27,14 @@ namespace EquipmentManager.Domain.Entities
             this.ModelName = name;
         }
 
+        public void Update(string name)
+        {
+            Validate(name);
+            if(!IsValid)
+                return ;
+            ModelName = name;
+        }
+
         public void Validate(string name)
         {
             AddNotifications(new Contract<Notification>()

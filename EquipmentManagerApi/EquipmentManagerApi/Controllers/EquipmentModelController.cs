@@ -70,7 +70,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentModelDto = _mapper.Map<EquipmentModelDto>(request);
-                var equipmentModel = _service.Create(equipmentModelDto);
+                _service.Create(equipmentModelDto);
+
+                var equipmentModel = _service.Get(equipmentModelDto);
 
                 var ret = _mapper.Map<CreateEquipmentModelResponse>(equipmentModel);
                 var response = new ApiResponse<CreateEquipmentModelResponse>()
@@ -106,7 +108,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentModelDto = _mapper.Map<EquipmentModelDto>(request);
-                var equipmentModel = _service.Update(equipmentModelDto);
+                _service.Update(equipmentModelDto);
+
+                var equipmentModel = _service.Get(equipmentModelDto);
 
                 var ret = _mapper.Map<UpdateEquipmentModelResponse>(equipmentModel);
                 var response = new ApiResponse<UpdateEquipmentModelResponse>()

@@ -6,10 +6,10 @@ namespace EquipmentManager.Application.Services
 {
     public class LoginService
     {
-        private readonly LoginRepository _repository;
+        private readonly ILoginRepository _repository;
         private readonly IMapper _mapper;
 
-        public LoginService(LoginRepository repository, IMapper mapper)
+        public LoginService(ILoginRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -18,7 +18,8 @@ namespace EquipmentManager.Application.Services
         public UserDto VerifyUserPassword(UserDto user)
         {
             var userBd = _repository.Get(user.UserName);
-            if (user.Password.Equals(userBd.Password)) return _mapper.Map<UserDto>(userBd); ;
+            if (user.Password.Equals(userBd.Password)) 
+                return _mapper.Map<UserDto>(userBd); ;
             return null;
         }
     }

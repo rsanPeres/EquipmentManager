@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
 using EquipmentManager.Application.Services;
+using EquipmentManager.Infrastructure.Migrations;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -34,7 +35,7 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                var equipment = _service.Get(equipmentDto);
+                var equipment = _service.Get(equipmentDto.Id);
 
                 var ret = _mapper.Map<GetEquipmentResponse>(equipment);
                 var response = new ApiResponse<GetEquipmentResponse>()
@@ -94,7 +95,8 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                var equipment = _service.Create(equipmentDto);
+                _service.Create(equipmentDto);
+                var equipment = _service.Get(equipmentDto.Id); 
 
                 var ret = _mapper.Map<CreateEquipmentResponse>(equipment);
                 var response = new ApiResponse<CreateEquipmentResponse>()
@@ -130,7 +132,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                var equipment = _service.Update(equipmentDto);
+                _service.Update(equipmentDto);
+
+                var equipment = _service.Get(equipmentDto.Id);
 
                 var ret = _mapper.Map<UpdateEquipmentResponse>(equipment);
                 var response = new ApiResponse<UpdateEquipmentResponse>()
@@ -166,7 +170,7 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                _service.Delete(equipmentDto);
+                _service.Delete(equipmentDto.Id);
 
                 var ret = _mapper.Map<DeleteEquipmentResponse>(request);
                 var response = new ApiResponse<DeleteEquipmentResponse>()

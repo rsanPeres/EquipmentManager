@@ -36,7 +36,7 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _service.Get(userDto);
+                var user = _service.Get(userDto.Cpf);
 
                 var ret = _mapper.Map<GetUserResponse>(user);
                 var response = new ApiResponse<GetUserResponse>()
@@ -73,7 +73,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _service.Create(userDto);
+                _service.Create(userDto);
+
+                var user = _service.Get(userDto.Cpf);
 
                 var ret = _mapper.Map<CreateUserResponse>(user);
                 var response = new ApiResponse<CreateUserResponse>()
@@ -110,7 +112,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _service.Update(userDto);
+                _service.Update(userDto);
+
+                var user = _service.Get(userDto.Cpf);
 
                 var ret = _mapper.Map<UpdateUserResponse>(user);
                 var response = new ApiResponse<UpdateUserResponse>()

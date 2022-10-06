@@ -50,11 +50,11 @@ namespace BreakevenStoneApi
             services.AddScoped<UserService, UserService>();
             services.AddScoped<LoginService, LoginService>();
             services.AddScoped<TokenService, TokenService>();
-            services.AddScoped<sEquipmentModelService, EquipmentModelService>();
-            services.AddScoped<EquipmentRepository, EquipmentRepository>();
-            services.AddScoped<EquipmentModelRepository, EquipmentModelRepository>();
-            services.AddScoped<UserRepository, UserRepository>();
-            services.AddScoped<LoginRepository, LoginRepository>();
+            services.AddScoped<EquipmentModelService, EquipmentModelService>();
+            services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+            services.AddScoped<IEquipmentModelRepository, EquipmentModelRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
             AddApplicationServices(services);
             services.AddSwaggerGen(c =>
             {

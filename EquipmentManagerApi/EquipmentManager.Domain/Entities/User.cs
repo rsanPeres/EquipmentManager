@@ -37,6 +37,21 @@ namespace EquipmentManager.Domain.Entities
             }
         }
 
+        public void SetEmployeeCpf(string cpf)
+        {
+            this.Cpf = cpf;
+        }
+
+        public void SetUserName(string userName)
+        {
+            this.UserName = userName;
+        }
+
+        public void SetPassword(string password)
+        {
+            this.Password = password;
+        }
+
         public void Validate(string userName, string password, RoleNames role, string cpf)
         {
             AddNotifications(new Contract<Notification>()
@@ -46,7 +61,7 @@ namespace EquipmentManager.Domain.Entities
                .IsGreaterThan(password.Length, 8, "invalid_size_password", "Invalid size password")
                .IsNotNull(role, "invalid_role", "Invalid role")
                .IsNotNullOrEmpty(cpf, "invalid_cpf", "Invalid cpf")
-               .IsGreaterThan(cpf.Length, 11, "invalid_size_cpf", "Invalid size cpf"));
+               .IsGreaterOrEqualsThan(cpf.Length, 11, "invalid_size_cpf", "Invalid size cpf"));
         }
     }
 }

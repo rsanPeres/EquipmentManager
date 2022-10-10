@@ -1,10 +1,13 @@
-﻿using EquipmentManager.Application.Services;
+﻿using AutoMapper;
+using EquipmentManager.Application.Services;
 using EquipmentManager.Application.Settings;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
 using EquipmentManager.Repository;
 using EquipmentManager.Repository.Repositories;
+using EquipmentManagerApi.Mappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -45,7 +48,17 @@ namespace BreakevenStoneApi
                 });
             services.AddDbContext<ApplicationContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("EquipmentManager")));
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new UserMappers());
+                mc.AddProfile(new EquipmentMappers());
+                mc.AddProfile(new EquipmentModelMappers());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddScoped<EquipmentService, EquipmentService>();
             services.AddScoped<UserService, UserService>();
             services.AddScoped<LoginService, LoginService>();

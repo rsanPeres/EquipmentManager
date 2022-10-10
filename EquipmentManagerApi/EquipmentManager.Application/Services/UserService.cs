@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
-using EquipmentManager.Infrastructure.Migrations;
-using EquipmentManager.Repository;
-using EquipmentManager.Repository.Repositories;
 using Flunt.Notifications;
 
 namespace EquipmentManager.Application.Services
 {
-    public class UserService : Notifiable<Notification>
+    public class UserService : Notifiable<Notification>, IUserService
     {
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
@@ -35,14 +33,14 @@ namespace EquipmentManager.Application.Services
         public UserDto Get(string cpf)
         {
             var user = _repository.Get(cpf);
-
+            
             if (user is null)
             {
                 AddNotification("user_isnull", "User not found");
                 return null;
             }
-
-            return _mapper.Map<UserDto>(user);
+            var userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
 
         public List<UserDto> GetMany()
@@ -70,6 +68,11 @@ namespace EquipmentManager.Application.Services
 
         public void Delete(UserDto userDto)
         {
+            var user = _repository.Get(userDto.Cpf);
+            AddNotifications(user);
+
+            if (!IsValid)
+                return;
             _repository.Delete(userDto.Cpf);
             _repository.SaveChanges();
         }

@@ -24,9 +24,10 @@ namespace EquipmentManagerApi.Mappers
             DeleteResponseToRequest();
         }
 
+
         private void UserToDto()
         {
-            CreateMap<UserDto, User>()
+            CreateMap<User, UserDto>()
                 .ReverseMap();
         }
 

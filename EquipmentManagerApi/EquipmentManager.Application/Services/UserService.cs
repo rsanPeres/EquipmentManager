@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
-using EquipmentManager.Infrastructure.Migrations;
-using EquipmentManager.Repository;
-using EquipmentManager.Repository.Repositories;
 using Flunt.Notifications;
 
 namespace EquipmentManager.Application.Services
 {
-    public class UserService : Notifiable<Notification>
+    public class UserService : Notifiable<Notification>, IUserService
     {
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;

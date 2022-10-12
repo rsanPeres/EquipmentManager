@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentManager.Infrastructure
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : DbContext, IApplicationContext
     {
-        public DbSet<User> User { get; set; }
-        public DbSet<Equipment> Equipment { get; set; }
-        public DbSet<EquipmentModel> EquipmentModel { get; set; }
-        public DbSet<EquipmentModelStateHourlyEarning> EquipmentModelStateHourlyEarning { get; set; }
-        public DbSet<EquipmentPositionHistory> EquipmentPositionHistory { get; set; }
-        public DbSet<EquipmentState> EquipmentState { get; set; }
-        public DbSet<EquipmentStateHistory> EquipmentStateHistory { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Equipment> Equipment { get; set; }
+        public virtual DbSet<EquipmentModel> EquipmentModel { get; set; }
+        public virtual DbSet<EquipmentModelStateHourlyEarning> EquipmentModelStateHourlyEarning { get; set; }
+        public virtual DbSet<EquipmentPositionHistory> EquipmentPositionHistory { get; set; }
+        public virtual DbSet<EquipmentState> EquipmentState { get; set; }
+        public virtual DbSet<EquipmentStateHistory> EquipmentStateHistory { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> opt) : base(opt)
         {

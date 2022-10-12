@@ -41,6 +41,7 @@ namespace EquipmentManager.Tests.Service
         [Fact]
         public void GivenInvalidUser_ShouldNotCreate()
         {
+            var xp = "xp";
             var userDto = _fixture.Build<UserDto>()
                 .Without(x => x.UserName).With(x => x.UserName, "xp").Create();
             var service = new UserService(AutomapperSingleton.Mapper, _repository.Object);

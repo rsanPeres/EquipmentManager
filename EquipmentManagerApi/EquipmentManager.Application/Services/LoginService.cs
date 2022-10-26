@@ -21,7 +21,7 @@ namespace EquipmentManager.Application.Services
             _repository.EnsureCreatedDatabase();
 
             var userBd = _repository.Get(user.UserName);
-            if (user.Password.Equals(userBd.Password))
+            if (BCrypt.Net.BCrypt.Verify(user.Password, userBd.Password))
                 return _mapper.Map<UserDto>(userBd); ;
             return null;
         }

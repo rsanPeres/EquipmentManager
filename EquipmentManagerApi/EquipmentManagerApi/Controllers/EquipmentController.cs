@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
-using EquipmentManager.Application.Services;
-using EquipmentManager.Infrastructure.Migrations;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -14,9 +13,9 @@ namespace EquipmentManagerApi.Controllers
     public class EquipmentController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly EquipmentService _service;
+        private readonly IEquipmentService _service;
 
-        public EquipmentController(EquipmentService service, IMapper mapper)
+        public EquipmentController(IEquipmentService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -66,8 +65,8 @@ namespace EquipmentManagerApi.Controllers
             {
                 var equipment = _service.GetMany();
 
-                
-               
+
+
                 return Ok(equipment);
             }
             catch (Exception e)
@@ -96,7 +95,7 @@ namespace EquipmentManagerApi.Controllers
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
                 _service.Create(equipmentDto);
-                var equipment = _service.Get(equipmentDto.Id); 
+                var equipment = _service.Get(equipmentDto.Id);
 
                 var ret = _mapper.Map<CreateEquipmentResponse>(equipment);
                 var response = new ApiResponse<CreateEquipmentResponse>()

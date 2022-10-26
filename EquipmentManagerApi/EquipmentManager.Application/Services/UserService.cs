@@ -20,7 +20,8 @@ namespace EquipmentManager.Application.Services
 
         public void Create(UserDto userDto)
         {
-            var user = new User(userDto.UserName, userDto.Password, userDto.Role, userDto.Cpf);
+            var password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+            var user = new User(userDto.UserName, password, userDto.Role, userDto.Cpf);
             AddNotifications(user);
 
             if (!IsValid)

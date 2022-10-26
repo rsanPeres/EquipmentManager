@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using EquipmentManager.Domain.Entities;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace EquipmentManager.Tests.Domain.Entities
@@ -13,7 +14,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidName_ShouldNotAssignValueToProperty()
         {
             var name = string.Empty;
             var equipmentModel = new EquipmentModel(name);
@@ -23,7 +24,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeComTamanhoInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidLengthName_ShouldNotAssignValueToProperty()
         {
             var name = "xp";
             var equipmentModel = new EquipmentModel(name);
@@ -33,7 +34,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeValido_DeveAtribuirPropriedade()
+        public void GivenAValidName_ShouldAssignValueToProperty()
         {
             var name = _fixture.Create<string>();
             var equipmentModel = new EquipmentModel(name);

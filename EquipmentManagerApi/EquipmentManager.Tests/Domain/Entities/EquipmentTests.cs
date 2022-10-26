@@ -13,7 +13,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidName_ShouldNotAssignValueToProperty()
         {
             var equipmentModel = _fixture.Create<EquipmentModel>();
             var name = string.Empty;
@@ -24,7 +24,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeComTamanhoInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidLengthName_ShouldNotAssignValueToProperty()
         {
             var equipmentModel = _fixture.Create<EquipmentModel>();
             var name = "xp";
@@ -35,7 +35,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeValido_DeveAtribuirPropriedade()
+        public void GivenAValidName_ShouldAssignValueToProperty()
         {
             var equipmentModel = _fixture.Create<EquipmentModel>();
             var name = _fixture.Create<string>();
@@ -45,7 +45,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmEquipmentModel_DeveAtribuirPropriedade()
+        public void GivenAnEquipmentModel_ShouldAssignValueToProperty()
         {
             EquipmentModel equipmentModel = _fixture.Create<EquipmentModel>();
             var name = _fixture.Create<string>();
@@ -56,7 +56,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmEquipmentModelNull_NaoDeveAtribuirPropriedade()
+        public void GivenAnEquipmentModelNull_ShouldNotAssignValueToProperty()
         {
             EquipmentModel equipmentModel = null;
             var name = _fixture.Create<string>();

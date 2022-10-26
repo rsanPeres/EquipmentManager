@@ -13,7 +13,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidName_ShouldNotAssignValueToProperty()
         {
             var latitude = string.Empty;
             var longitude = _fixture.Create<string>();
@@ -22,11 +22,11 @@ namespace EquipmentManager.Tests.Domain.Entities
 
             Assert.False(equipmentPositionHistory.IsValid);
             Assert.Null(equipmentPositionHistory.Latitude);
-            Assert.Null(equipmentPositionHistory.Longitude);
+            Assert.Null(equipmentPositionHistory.Length);
         }
 
         [Fact]
-        public void DadoUmNomeComTamanhoInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidLengthName_ShouldNotAssignValueToProperty()
         {
             var latitude = "xp";
             var longitude = _fixture.Create<string>();
@@ -35,11 +35,11 @@ namespace EquipmentManager.Tests.Domain.Entities
 
             Assert.False(equipmentPositionHistory.IsValid);
             Assert.Null(equipmentPositionHistory.Latitude);
-            Assert.Null(equipmentPositionHistory.Longitude);
+            Assert.Null(equipmentPositionHistory.Length);
         }
 
         [Fact]
-        public void DadoUmNomeValido_DeveAtribuirPropriedade()
+        public void GivenAValidName_ShouldAssignValueToProperty()
         {
             var longitude = _fixture.Create<string>();
             var latitude = _fixture.Create<string>();
@@ -47,7 +47,7 @@ namespace EquipmentManager.Tests.Domain.Entities
 
             Assert.True(equipmentPositionHistory.IsValid);
             Assert.NotEmpty(equipmentPositionHistory.Latitude);
-            Assert.NotEmpty(equipmentPositionHistory.Longitude);
+            Assert.NotEmpty(equipmentPositionHistory.Length);
         }
     }
 }

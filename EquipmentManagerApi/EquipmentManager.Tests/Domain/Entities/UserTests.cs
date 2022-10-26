@@ -14,7 +14,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeVazio_NaoDeveriaSetarPropriedade()
+        public void GivenAEmptyName_ShouldNotAssignValueToProperty()
         {
             var name = string.Empty;
             var password = _fixture.Create<string>();

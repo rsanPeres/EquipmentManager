@@ -13,7 +13,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidName_ShouldNotAssignValueToProperty()
         {
             var stateName = string.Empty;
             var equipmentColor = _fixture.Create<string>();
@@ -26,7 +26,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeComTamanhoInvalido_NaoDeveAtribuirPropriedade()
+        public void GivenAnInvalidLengthName_ShouldNotAssignValueToProperty()
         {
             var stateName = "xp";
             var equipmentColor = _fixture.Create<string>();
@@ -39,7 +39,7 @@ namespace EquipmentManager.Tests.Domain.Entities
         }
 
         [Fact]
-        public void DadoUmNomeValido_DeveAtribuirPropriedade()
+        public void GivenAValidName_ShouldAssignValueToProperty()
         {
             var stateName = _fixture.Create<string>();
             var equipmentColor = _fixture.Create<string>();

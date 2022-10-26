@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Application.Dtos
 {
-    //Todo: DTOs não são entidades. Leve os para a camada Application
     public class EquipmentDto
     {
         public int Id { get; set; }

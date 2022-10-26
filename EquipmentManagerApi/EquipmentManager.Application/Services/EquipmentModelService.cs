@@ -26,12 +26,15 @@ namespace EquipmentManager.Application.Services
             if (!IsValid)
                 return;
 
+            _repository.EnsureCreatedDatabase();
             _repository.Create(equipmentModel);
             _repository.SaveChanges();
         }
 
         public EquipmentModelDto Get(EquipmentModelDto equipmentModelDto)
         {
+            _repository.EnsureCreatedDatabase();
+
             var equipmentModel = _repository.Get(equipmentModelDto.Id);
             if (equipmentModel is null)
             {
@@ -43,6 +46,7 @@ namespace EquipmentManager.Application.Services
 
         public List<EquipmentModelDto> GetMany()
         {
+            _repository.EnsureCreatedDatabase();
             var equipmentModel = _repository.GetMany();
             if (equipmentModel is null)
             {
@@ -53,6 +57,8 @@ namespace EquipmentManager.Application.Services
 
         public void Update(EquipmentModelDto equipmentModelDto)
         {
+            _repository.EnsureCreatedDatabase();
+
             var equipmentModel = _repository.Get(equipmentModelDto.Id);
             equipmentModel.Update(equipmentModelDto.ModelName);
             AddNotifications(equipmentModel);
@@ -66,6 +72,8 @@ namespace EquipmentManager.Application.Services
 
         public void Delete(EquipmentModelDto equipmentModelDto)
         {
+            _repository.EnsureCreatedDatabase();
+
             _repository.Delete(equipmentModelDto.Id);
         }
     }

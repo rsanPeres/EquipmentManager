@@ -10,6 +10,7 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         public List<Equipment> GetMany();
         public void Delete(int id);
         public void SaveChanges();
+        public void EnsureCreatedDatabase();
 
     }
 }

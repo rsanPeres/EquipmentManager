@@ -30,7 +30,7 @@ namespace EquipmentManager.Repository
 
         public List<Equipment> GetMany()
         {
-            var equipment = _appContext.Equipment.ToList();
+            var equipment = _appContext.Equipments.ToList();
             return equipment;
         }
 
@@ -42,6 +42,18 @@ namespace EquipmentManager.Repository
         public void SaveChanges()
         {
             _appContext.SaveChanges();
+        }
+
+        public void EnsureCreatedDatabase()
+        {
+            try
+            {
+                _appContext.Database.EnsureCreated();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

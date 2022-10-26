@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Application.Services;
 using EquipmentManager.Application.Settings;
 using EquipmentManager.Domain.Interfaces.Repository;
@@ -67,16 +68,15 @@ namespace BreakevenStoneApi
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
             services.AddScoped<IEquipmentModelRepository, EquipmentModelRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ILoginRepository, LoginRepository>();
         }
 
         private static void AddApplicationServices(IServiceCollection services)
         {
-            services.AddScoped<EquipmentService, EquipmentService>();
-            services.AddScoped<UserService, UserService>();
-            services.AddScoped<LoginService, LoginService>();
+            services.AddScoped<IEquipmentService, EquipmentService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<TokenService, TokenService>();
-            services.AddScoped<EquipmentModelService, EquipmentModelService>();
+            services.AddScoped<IEquipmentModelService, EquipmentModelService>();
         }
 
         private static void AddApplicationMappers(IServiceCollection services)

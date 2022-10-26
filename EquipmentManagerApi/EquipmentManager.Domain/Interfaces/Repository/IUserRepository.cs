@@ -1,5 +1,6 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Enums;
+using System;
 
 namespace EquipmentManager.Domain.Interfaces.Repository
 {
@@ -11,5 +12,6 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         public void Delete(string cpf);
         public List<User> GetMany();
         public void SaveChanges();
+        public void EnsureCreatedDatabase();
     }
 }

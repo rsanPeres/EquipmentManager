@@ -1,5 +1,4 @@
 ﻿using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Enums;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
 
@@ -16,18 +15,19 @@ namespace EquipmentManager.Repository.Repositories
 
         public void Create(User user)
         {
-            _appContext.User.Add(user);
+            _appContext.Database.EnsureCreated();
+            _appContext.Users.Add(user);
         }
 
         public User Get(string cpf)
         {
-            var user = _appContext.User.Find(cpf);
+            var user = _appContext.Users.Find(cpf);
             return user;
         }
 
         public List<User> GetMany()
         {
-            var user = _appContext.User.ToList();
+            var user = _appContext.Users.ToList();
             return user;
         }
 
@@ -44,6 +44,17 @@ namespace EquipmentManager.Repository.Repositories
         public void SaveChanges()
         {
             _appContext.SaveChanges();
+        }
+        public void EnsureCreatedDatabase()
+        {
+            try
+            {
+                _appContext.Database.EnsureCreated();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

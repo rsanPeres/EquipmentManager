@@ -26,12 +26,14 @@ namespace EquipmentManager.Application.Services
             if (!IsValid)
                 return;
 
+            _repository.EnsureCreatedDatabase();
             _repository.Create(user);
             _repository.SaveChanges();
         }
 
         public UserDto Get(string cpf)
         {
+            _repository.EnsureCreatedDatabase();
             var user = _repository.Get(cpf);
             
             if (user is null)
@@ -45,6 +47,8 @@ namespace EquipmentManager.Application.Services
 
         public List<UserDto> GetMany()
         {
+            _repository.EnsureCreatedDatabase();
+
             var user = _repository.GetMany();
             if (user is null)
             {
@@ -55,6 +59,8 @@ namespace EquipmentManager.Application.Services
 
         public void Update(UserDto userDto)
         {
+            _repository.EnsureCreatedDatabase();
+
             var user = _repository.Get(userDto.Cpf);
             user.SetEmployeeRole(userDto.Role);
             AddNotifications(user);
@@ -68,6 +74,8 @@ namespace EquipmentManager.Application.Services
 
         public void Delete(UserDto userDto)
         {
+            _repository.EnsureCreatedDatabase();
+
             var user = _repository.Get(userDto.Cpf);
             AddNotifications(user);
 

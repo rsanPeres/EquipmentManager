@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Dtos;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Responses;
 
@@ -21,11 +21,13 @@ namespace EquipmentManagerApi.Mappers
             DeleteResponseToDto();
             LoginRequestToDto();
             LoginResponseToDto();
+            DeleteResponseToRequest();
         }
+
 
         private void UserToDto()
         {
-            CreateMap<UserDto, User>()
+            CreateMap<User, UserDto>()
                 .ReverseMap();
         }
 
@@ -89,7 +91,7 @@ namespace EquipmentManagerApi.Mappers
                 .ReverseMap();
         }
 
-        private void DeleteRequestToResponse()
+        private void DeleteResponseToRequest()
         {
             CreateMap<DeleteUserRequest, DeleteUserResponse>()
                 .ReverseMap();

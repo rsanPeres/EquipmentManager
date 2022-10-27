@@ -10,7 +10,7 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
                 .NotEmpty()
                 .NotNull();
 
-            RuleFor(p => p.Name)
+            RuleFor(p => p.ModelName)
                 .NotNull()
                 .NotEmpty();
         }

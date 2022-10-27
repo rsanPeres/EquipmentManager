@@ -22,8 +22,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .HasColumnType("varchar(50)").IsRequired();
 
             builder.HasOne(x => x.EquipmentModel)
-                .WithMany(x => x.Equipments)
-                .HasForeignKey(x => x.EquipmentModelId);
+                .WithMany(x => x.Equipments);
 
             builder.Ignore(x => x.Notifications);
             builder.Ignore(x => x.IsValid);

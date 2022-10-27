@@ -1,6 +1,7 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,51 +10,56 @@ using System.Threading.Tasks;
 
 namespace EquipmentManager.Repository.Repositories
 {
-    public class EquipmentModelRepository : IEquipmentRepository
+    public class EquipmentModelRepository : IEquipmentModelRepository 
     {
-        public ApplicationContext AppContext;
+        private readonly ApplicationContext _appContext;
 
         public EquipmentModelRepository(ApplicationContext appContext)
         {
-            AppContext = appContext;
+            _appContext = appContext;
         }
 
-        public EquipmentModel Create(EquipmentModel equipmentModel)
+        public void Create(EquipmentModel equipmentModel)
         {
-            AppContext.Database.EnsureCreated();
-            AppContext.EquipmentModel.Add(equipmentModel);
-            AppContext.SaveChanges();
+            _appContext.Add(equipmentModel);
+        }
+
+        public void Update(EquipmentModel equipmentModel)
+        {
+            _appContext.Update(equipmentModel);
+        }
+
+        public EquipmentModel Get(int id)
+        {
+            var equipmentModel = _appContext.Find<EquipmentModel>(id);
             return equipmentModel;
         }
 
-        public EquipmentModel Get(string name)
+        public List<EquipmentModel> GetMany()
         {
-            AppContext.Database.EnsureCreated();
-            var equipmentModel = AppContext.EquipmentModel
-                       .Where(us => us.Name == name)
-                       .FirstOrDefault<EquipmentModel>();
+            var equipmentModel = _appContext.EquipmentsModel.ToList();
             return equipmentModel;
         }
 
-        public EquipmentModel Update(string address, string name)
+        public void Delete(int id)
         {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.Name == name);
-            if (equipmentModel != null)
+            var equipmentModel = Get(id);
+            _appContext.Remove<EquipmentModel>(equipmentModel);
+        }
+        public void SaveChanges()
+        {
+            _appContext.SaveChanges();
+        }
+
+        public void EnsureCreatedDatabase()
+        {
+            try
             {
-                AppContext.EquipmentModel.Where(p => p.Name == name).ToList().ForEach(p => p.Name = address);
-                AppContext.SaveChanges();
-                return equipmentModel;
+                _appContext.Database.EnsureCreated();
             }
-            return null;
-        }
-
-        public void Delete(string name)
-        {
-            var equipmentModel = AppContext.EquipmentModel.First(p => p.Name == name);
-            if (equipmentModel != null)
+            catch (Exception e)
             {
-                AppContext.EquipmentModel.Remove(equipmentModel);
-                AppContext.SaveChanges();
+                throw e;
             }
         }
     }

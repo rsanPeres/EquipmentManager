@@ -6,7 +6,7 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
     {
         public DeleteEquipmentModelValidator()
         {
-            RuleFor(p => p.Name)
+            RuleFor(p => p.ModelName)
                 .NotNull()
                 .NotEmpty();
         }

@@ -1,60 +1,59 @@
 ﻿using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Enuns;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Repository.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public ApplicationContext AppContext;
+        private readonly ApplicationContext _appContext;
 
         public UserRepository(ApplicationContext appContext)
         {
-            AppContext = appContext;
+            _appContext = appContext;
         }
 
-        public User Create(User user)
+        public void Create(User user)
         {
-            AppContext.Database.EnsureCreated();
-            AppContext.User.Add(user);
-            AppContext.SaveChanges();
-            return user;
+            _appContext.Database.EnsureCreated();
+            _appContext.Users.Add(user);
         }
 
         public User Get(string cpf)
         {
-            AppContext.Database.EnsureCreated();
-            var user = AppContext.User
-                       .Where(us => us.Cpf == cpf)
-                       .FirstOrDefault<User>();
+            var user = _appContext.Users.Find(cpf);
             return user;
         }
 
-        public User Update(string cpf, RoleNames name)
+        public List<User> GetMany()
         {
-            var user = AppContext.User.First(p => p.Cpf == cpf);
-            if (user != null)
-            {
-                AppContext.User.Where(p => p.Cpf == cpf).ToList().ForEach(p => p.Role = name);
-                AppContext.SaveChanges();
-                return user;
-            }
-            return null;
+            var user = _appContext.Users.ToList();
+            return user;
+        }
+
+        public void Update(User user)
+        {
+            _appContext.Update(user);
         }
 
         public void Delete(string cpf)
         {
-            var user = AppContext.User.First(p => p.Cpf == cpf);
-            if (user != null)
+            var user = Get(cpf);
+            _appContext.Remove<User>(user);
+        }
+        public void SaveChanges()
+        {
+            _appContext.SaveChanges();
+        }
+        public void EnsureCreatedDatabase()
+        {
+            try
             {
-                AppContext.User.Remove(user);
-                AppContext.SaveChanges();
+                _appContext.Database.EnsureCreated();
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }

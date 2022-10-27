@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EquipmentManager.Application.Services;
-using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -13,9 +13,9 @@ namespace EquipmentManagerApi.Controllers
     public class EquipmentController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly EquipmentService _service;
+        private readonly IEquipmentService _service;
 
-        public EquipmentController(EquipmentService service, IMapper mapper)
+        public EquipmentController(IEquipmentService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -34,7 +34,7 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                var equipment = _service.Get(equipmentDto);
+                var equipment = _service.Get(equipmentDto.Id);
 
                 var ret = _mapper.Map<GetEquipmentResponse>(equipment);
                 var response = new ApiResponse<GetEquipmentResponse>()
@@ -44,6 +44,30 @@ namespace EquipmentManagerApi.Controllers
                     Messages = null
                 };
                 return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
+        [Route("getMany")]
+        [HttpGet]
+        public IActionResult GetMany()
+        {
+            try
+            {
+                var equipment = _service.GetMany();
+
+
+
+                return Ok(equipment);
             }
             catch (Exception e)
             {
@@ -70,7 +94,8 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                var equipment = _service.Create(equipmentDto);
+                _service.Create(equipmentDto);
+                var equipment = _service.Get(equipmentDto.Id);
 
                 var ret = _mapper.Map<CreateEquipmentResponse>(equipment);
                 var response = new ApiResponse<CreateEquipmentResponse>()
@@ -106,7 +131,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                var equipment = _service.Update(equipmentDto);
+                _service.Update(equipmentDto);
+
+                var equipment = _service.Get(equipmentDto.Id);
 
                 var ret = _mapper.Map<UpdateEquipmentResponse>(equipment);
                 var response = new ApiResponse<UpdateEquipmentResponse>()
@@ -142,7 +169,7 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentDto = _mapper.Map<EquipmentDto>(request);
-                _service.Delete(equipmentDto);
+                _service.Delete(equipmentDto.Id);
 
                 var ret = _mapper.Map<DeleteEquipmentResponse>(request);
                 var response = new ApiResponse<DeleteEquipmentResponse>()

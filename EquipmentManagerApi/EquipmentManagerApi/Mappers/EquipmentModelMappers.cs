@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Application.Dtos;
 using EquipmentManager.Domain.Entities;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Responses;
@@ -19,6 +19,7 @@ namespace EquipmentManagerApi.Mappers
             GetResponseToDto();
             UpdateResponseToDto();
             DeleteResponseToDto();
+            DeleteRequestToresponse();
         }
 
         private void EquipmentModelToDto()
@@ -72,6 +73,12 @@ namespace EquipmentManagerApi.Mappers
         private void DeleteResponseToDto()
         {
             CreateMap<EquipmentModelDto, DeleteEquipmentModelResponse>()
+                .ReverseMap();
+        }
+
+        private void DeleteRequestToresponse()
+        {
+            CreateMap<DeleteEquipmentModelRequest, DeleteEquipmentModelResponse>()
                 .ReverseMap();
         }
     }

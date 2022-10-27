@@ -18,12 +18,11 @@ namespace EquipmentManager.Infrastructure.Configurator
             builder
                 .ToTable("Equipment_Position_History");
             builder
-                .HasKey(x => new { x.EquipmentId, x.DateRegisteredPosition })
+                .HasKey(x => x.Id)
                 .HasName("Id_EquipmentPositionHistory");
 
             builder.HasOne(x => x.Equipment)
-                .WithMany(x => x.EquipmentPositionHistories)
-                .HasForeignKey(x => x.EquipmentId);
+                .WithMany(x => x.EquipmentPositionHistories);
 
             builder.Ignore(x => x.Notifications);
             builder.Ignore(x => x.IsValid);

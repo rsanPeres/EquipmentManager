@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EquipmentManager.Application.Services;
-using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -14,16 +14,16 @@ namespace EquipmentManagerApi.Controllers
     public class UserController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly UserService _service;
+        private readonly IUserService _service;
 
-        public UserController(UserService service, IMapper mapper)
+        public UserController(IUserService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Manager, Employee")]
         public IActionResult Get(GetUserRequest request)
         {
             try
@@ -36,7 +36,7 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _service.Get(userDto);
+                var user = _service.Get(userDto.Cpf);
 
                 var ret = _mapper.Map<GetUserResponse>(user);
                 var response = new ApiResponse<GetUserResponse>()
@@ -73,7 +73,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _service.Create(userDto);
+                _service.Create(userDto);
+
+                var user = _service.Get(userDto.Cpf);
 
                 var ret = _mapper.Map<CreateUserResponse>(user);
                 var response = new ApiResponse<CreateUserResponse>()
@@ -97,7 +99,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpPatch]
-        [AllowAnonymous]
+        [Authorize(Roles = "Manager, Employee")]
         public async Task<IActionResult> Update(UpdateUserRequest request)
         {
             try
@@ -110,7 +112,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var userDto = _mapper.Map<UserDto>(request);
-                var user = _service.Update(userDto);
+                _service.Update(userDto);
+
+                var user = _service.Get(userDto.Cpf);
 
                 var ret = _mapper.Map<UpdateUserResponse>(user);
                 var response = new ApiResponse<UpdateUserResponse>()
@@ -135,7 +139,7 @@ namespace EquipmentManagerApi.Controllers
 
         [HttpDelete]
         [AllowAnonymous]
-        
+
         public async Task<IActionResult> Delete(DeleteUserRequest request)
         {
             try

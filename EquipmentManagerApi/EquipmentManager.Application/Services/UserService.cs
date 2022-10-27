@@ -1,56 +1,90 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Dtos;
-using EquipmentManager.Repository.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EquipmentManager.Domain.Interfaces.Repository;
+using Flunt.Notifications;
+using EquipmentManager.Domain.Constants;
 
 namespace EquipmentManager.Application.Services
 {
-    public class UserService
+    public class UserService : Notifiable<Notification>, IUserService
     {
-        private UserRepository _repository;
-        private IMapper _mapper;
+        private readonly IUserRepository _repository;
+        private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper, UserRepository repository)
+        public UserService(IMapper mapper, IUserRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
         }
 
-        public UserDto Create(UserDto userDto)
+        public void Create(UserDto userDto)
         {
-            var user = new User(userDto.UserName, userDto.Password, userDto.Role, userDto.Cpf);
-            if (user.IsValid)
+            var password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+            var user = new User(userDto.UserName, password, userDto.Role, userDto.Cpf);
+            AddNotifications(user);
+
+            if (!IsValid)
+                return;
+
+            _repository.EnsureCreatedDatabase();
+            _repository.Create(user);
+            _repository.SaveChanges();
+        }
+
+        public UserDto Get(string cpf)
+        {
+            _repository.EnsureCreatedDatabase();
+            var user = _repository.Get(cpf);
+            
+            if (user is null)
             {
-                _repository.Create(user);
-                return _mapper.Map<UserDto>(user);
+                AddNotification(UserConstants.UserNull, UserConstants.UserNullMsg);
+                return null;
             }
-            foreach (var notification in user.Notifications)
-                Console.WriteLine($"{notification.Key} : {notification.Message}");
-            return null;
+            var userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
 
-        public UserDto Get(UserDto userDto)
+        public List<UserDto> GetMany()
         {
+            _repository.EnsureCreatedDatabase();
+
+            var user = _repository.GetMany();
+            if (user is null)
+            {
+                AddNotification(UserConstants.UserEmpty, UserConstants.UserEmptyMsg);
+            }
+            return _mapper.Map<List<UserDto>>(user);
+        }
+
+        public void Update(UserDto userDto)
+        {
+            _repository.EnsureCreatedDatabase();
+
             var user = _repository.Get(userDto.Cpf);
-            if (user != null) return _mapper.Map<UserDto>(user);
-            return null;
-        }
+            user.SetEmployeeRole(userDto.Role);
+            AddNotifications(user);
 
-        public UserDto Update(UserDto userDto)
-        {
-            var user = _repository.Update(userDto.Cpf, userDto.Role);
-            if (user != null) return _mapper.Map<UserDto>(user);
-            return null;
+            if (!IsValid)
+                return;
+
+            _repository.Update(user);
+            _repository.SaveChanges();
         }
 
         public void Delete(UserDto userDto)
         {
+            _repository.EnsureCreatedDatabase();
+
+            var user = _repository.Get(userDto.Cpf);
+            AddNotifications(user);
+
+            if (!IsValid)
+                return;
             _repository.Delete(userDto.Cpf);
+            _repository.SaveChanges();
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Application.Services;
-using EquipmentManager.Domain.Entities.Dtos;
-using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Requests;
+using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
 using Microsoft.AspNetCore.Mvc;
-using EquipmentManager.Domain.Entities;
 
 namespace EquipmentManagerApi.Controllers
 {
@@ -14,9 +14,9 @@ namespace EquipmentManagerApi.Controllers
     public class EquipmentModelController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly EquipmentModelService _service;
+        private readonly IEquipmentModelService _service;
 
-        public EquipmentModelController(EquipmentModelService service, IMapper mapper)
+        public EquipmentModelController(IEquipmentModelService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -71,7 +71,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentModelDto = _mapper.Map<EquipmentModelDto>(request);
-                var equipmentModel = _service.Create(equipmentModelDto);
+                _service.Create(equipmentModelDto);
+
+                var equipmentModel = _service.Get(equipmentModelDto);
 
                 var ret = _mapper.Map<CreateEquipmentModelResponse>(equipmentModel);
                 var response = new ApiResponse<CreateEquipmentModelResponse>()
@@ -107,7 +109,9 @@ namespace EquipmentManagerApi.Controllers
                     throw new Exception(result.ToString());
                 }
                 var equipmentModelDto = _mapper.Map<EquipmentModelDto>(request);
-                var equipmentModel = _service.Update(equipmentModelDto);
+                _service.Update(equipmentModelDto);
+
+                var equipmentModel = _service.Get(equipmentModelDto);
 
                 var ret = _mapper.Map<UpdateEquipmentModelResponse>(equipmentModel);
                 var response = new ApiResponse<UpdateEquipmentModelResponse>()

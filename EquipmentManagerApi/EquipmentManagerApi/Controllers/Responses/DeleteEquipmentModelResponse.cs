@@ -2,7 +2,7 @@
 {
     public class DeleteEquipmentModelResponse
     {
-        public string Name { get; set; }
+        public string ModelName { get; set; }
 
     }
 }

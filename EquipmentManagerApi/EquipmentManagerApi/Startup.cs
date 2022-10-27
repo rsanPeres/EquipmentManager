@@ -1,10 +1,14 @@
-﻿using EquipmentManager.Application.Services;
-using EquipmentManager.Domain.Entities;
+﻿using AutoMapper;
+using EquipmentManager.Application.Interfaces;
+using EquipmentManager.Application.Services;
+using EquipmentManager.Application.Settings;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
 using EquipmentManager.Repository;
 using EquipmentManager.Repository.Repositories;
+using EquipmentManagerApi.Mappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -25,37 +29,14 @@ namespace BreakevenStoneApi
         {
             services.AddControllers();
 
-            var key = Encoding.ASCII.GetBytes(TokenSettings.Secret);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(x =>
-                {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                    };
-                });
+            AddApplicationAuthentication(services);
+
             services.AddDbContext<ApplicationContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("EquipmentManager")));
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<EquipmentService, EquipmentService>();
-            services.AddScoped<UserService, UserService>();
-            services.AddScoped<LoginService, LoginService>();
-            services.AddScoped<TokenService, TokenService>();
-            services.AddScoped<EquipmentModelService, EquipmentModelService>();
-            services.AddScoped<EquipmentRepository, EquipmentRepository>();
-            services.AddScoped<EquipmentModelRepository, EquipmentModelRepository>();
-            services.AddScoped<UserRepository, UserRepository>();
-            services.AddScoped<LoginRepository, LoginRepository>();
+
+            AddApplicationMappers(services);
             AddApplicationServices(services);
+            AddApplicationRepositories(services);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EquipmentManagerApi", Version = "v1" });
@@ -82,10 +63,55 @@ namespace BreakevenStoneApi
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        private static void AddApplicationServices(IServiceCollection services)
+        private static void AddApplicationRepositories(IServiceCollection services)
         {
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+            services.AddScoped<IEquipmentModelRepository, EquipmentModelRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
+        private static void AddApplicationServices(IServiceCollection services)
+        {
+            services.AddScoped<IEquipmentService, EquipmentService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<TokenService, TokenService>();
+            services.AddScoped<IEquipmentModelService, EquipmentModelService>();
+        }
+
+        private static void AddApplicationMappers(IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new UserMappers());
+                mc.AddProfile(new EquipmentMappers());
+                mc.AddProfile(new EquipmentModelMappers());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+        }
+
+        private static void AddApplicationAuthentication(IServiceCollection services)
+        {
+            var key = Encoding.ASCII.GetBytes(TokenSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
+        }
     }
 }

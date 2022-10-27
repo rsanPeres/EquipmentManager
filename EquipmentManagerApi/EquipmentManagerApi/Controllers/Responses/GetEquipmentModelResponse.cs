@@ -2,7 +2,7 @@
 {
     public class GetEquipmentModelResponse
     {
-        public string Name { get; set; }
+        public string ModelName { get; set; }
 
     }
 }

@@ -1,20 +1,33 @@
 ﻿using Flunt.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Flunt.Validations;
 
 namespace EquipmentManager.Domain.Entities
 {
     public class EquipmentState : Notifiable<Notification>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Color { get; set; }
-        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; set; }
-        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
+        public int Id { get; private set; }
+        public string StateName { get; private set; }
+        public string EquipmentColor { get; private set; }
+        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
+        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
 
+        public EquipmentState(string stateName, string equipmentColor)
+        {
+            Validate(stateName, equipmentColor);
+            if (!IsValid)
+                return;
 
+            StateName = stateName;
+            EquipmentColor = equipmentColor;
+        }
+
+        public void Validate(string stateName, string equipmentColor)
+        {
+            AddNotifications(new Contract<Notification>()
+               .IsNotNullOrEmpty(stateName, "invalid_userName", "Invalid userName")
+               .IsGreaterThan(stateName.Length, 2, "invalid_size_userName", "Invalid size userName")
+               .IsNotNullOrEmpty(equipmentColor, "invalid_password", "Invalid password")
+               .IsGreaterThan(equipmentColor.Length, 3, "invalid_size_password", "Invalid size password"));
+        }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class CreateEquipmentModelRequest
     {
-        public string Name { get; set; }
+        public string ModelName { get; set; }
     }
 }

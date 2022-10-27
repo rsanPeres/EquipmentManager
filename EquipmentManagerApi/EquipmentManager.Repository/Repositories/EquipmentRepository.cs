@@ -6,49 +6,53 @@ namespace EquipmentManager.Repository
 {
     public class EquipmentRepository : IEquipmentRepository
     {
-        public ApplicationContext AppContext;
-
+        private readonly ApplicationContext _appContext;
         public EquipmentRepository(ApplicationContext appContext)
         {
-            AppContext = appContext;
+            _appContext = appContext;
         }
 
-        public Equipment Create(Equipment equipment)
+        public void Create(Equipment equipment)
         {
-            AppContext.Database.EnsureCreated();
-            AppContext.Equipment.Add(equipment);
-            AppContext.SaveChanges();
+            _appContext.Add(equipment);
+        }
+
+        public void Update(Equipment equipment)
+        {
+            _appContext.Update(equipment);
+        }
+
+        public Equipment Get(int id)
+        {
+            var equipment = _appContext.Find<Equipment>(id);
             return equipment;
         }
 
-        public Equipment Get(string name)
+        public List<Equipment> GetMany()
         {
-            AppContext.Database.EnsureCreated();
-            var equipment = AppContext.Equipment
-                       .Where(us => us.Name == name)
-                       .FirstOrDefault<Equipment>();
+            var equipment = _appContext.Equipments.ToList();
             return equipment;
         }
 
-        public Equipment Update(string address, string name)
+        public void Delete(int id)
         {
-            var equipment = AppContext.Equipment.First(p => p.Name == name);
-            if (equipment != null)
+            var equipment = Get(id);
+            _appContext.Remove<Equipment>(equipment);
+        }
+        public void SaveChanges()
+        {
+            _appContext.SaveChanges();
+        }
+
+        public void EnsureCreatedDatabase()
+        {
+            try
             {
-                AppContext.Equipment.Where(p => p.Name == name).ToList().ForEach(p => p.EquipmentModel.Name = address);
-                AppContext.SaveChanges();
-                return equipment;
+                _appContext.Database.EnsureCreated();
             }
-            return null;
-        }
-
-        public void Delete(string name)
-        {
-            var equipment = AppContext.Equipment.First(p => p.Name == name);
-            if (equipment != null)
+            catch (Exception e)
             {
-                AppContext.Equipment.Remove(equipment);
-                AppContext.SaveChanges();
+                throw e;
             }
         }
     }

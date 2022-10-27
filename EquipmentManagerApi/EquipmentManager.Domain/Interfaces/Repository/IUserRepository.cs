@@ -1,21 +1,17 @@
 ﻿using EquipmentManager.Domain.Entities;
-using EquipmentManager.Domain.Entities.Enuns;
+using EquipmentManager.Domain.Enums;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Dynamic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquipmentManager.Domain.Interfaces.Repository
 {
     public interface IUserRepository
     {
         public User Get(string cpf);
-        public User Create(User user);
-        public User Update(string name, RoleNames role);
+        public void Create(User user);
+        public void Update(User user);
         public void Delete(string cpf);
+        public List<User> GetMany();
+        public void SaveChanges();
+        public void EnsureCreatedDatabase();
     }
 }

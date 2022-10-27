@@ -28,9 +28,6 @@ namespace EquipmentManager.Infrastructure.Configurator
             builder.HasOne(x => x.EquipmentState)
                 .WithMany(x => x.EquipmentsStateHourlyEarning)
                 .HasForeignKey(x => x.EquipmentStateId);
-
-            builder.Ignore(x => x.Notifications);
-            builder.Ignore(x => x.IsValid);
         }
     }
 }

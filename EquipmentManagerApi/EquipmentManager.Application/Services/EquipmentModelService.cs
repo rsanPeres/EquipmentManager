@@ -1,56 +1,81 @@
 ﻿using AutoMapper;
-using EquipmentManager.Domain.Entities.Dtos;
+using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
+using EquipmentManager.Domain.Constants;
 using EquipmentManager.Domain.Entities;
-using EquipmentManager.Repository.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EquipmentManager.Domain.Interfaces.Repository;
+using Flunt.Notifications;
 
 namespace EquipmentManager.Application.Services
 {
-    public class EquipmentModelService
+    public class EquipmentModelService : Notifiable<Notification>, IEquipmentModelService
     {
-        private EquipmentModelRepository _repository;
-        private IMapper _mapper;
+        private readonly IEquipmentModelRepository _repository;
+        private readonly IMapper _mapper;
 
-        public EquipmentModelService(IMapper mapper, EquipmentModelRepository repository)
+        public EquipmentModelService(IMapper mapper, IEquipmentModelRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
         }
 
-        public EquipmentModelDto Create(EquipmentModelDto equipmentDto)
+        public void Create(EquipmentModelDto equipmentDto)
         {
-            var equipmentModel = new EquipmentModel(equipmentDto.Name);
-            if (equipmentModel.IsValid)
-            {
-                _repository.Create(equipmentModel);
-                return _mapper.Map<EquipmentModelDto>(equipmentModel);
-            }
-            foreach (var notification in equipmentModel.Notifications)
-                Console.WriteLine($"{notification.Key} : {notification.Message}");
-            return null;
+            var equipmentModel = new EquipmentModel(equipmentDto.ModelName);
+            AddNotifications(equipmentModel);
+
+            if (!IsValid)
+                return;
+
+            _repository.EnsureCreatedDatabase();
+            _repository.Create(equipmentModel);
+            _repository.SaveChanges();
         }
 
         public EquipmentModelDto Get(EquipmentModelDto equipmentModelDto)
         {
-            var equipmentModel = _repository.Get(equipmentModelDto.Name);
-            if (equipmentModel != null) return _mapper.Map<EquipmentModelDto>(equipmentModel);
-            return null;
+            _repository.EnsureCreatedDatabase();
+
+            var equipmentModel = _repository.Get(equipmentModelDto.Id);
+            if (equipmentModel is null)
+            {
+                AddNotification(EquipmentModelConstants.EquipmentModelNull, EquipmentConstants.EquipmentNullMsg);
+                return null;
+            }
+            return _mapper.Map<EquipmentModelDto>(equipmentModel);
         }
 
-        public EquipmentModelDto Update(EquipmentModelDto equipmentModelDto)
+        public List<EquipmentModelDto> GetMany()
         {
-            var equipmentModel = _repository.Update(equipmentModelDto.Name, equipmentModelDto.Name);
-            if (equipmentModel != null) return _mapper.Map<EquipmentModelDto>(equipmentModel);
-            return null;
+            _repository.EnsureCreatedDatabase();
+            var equipmentModel = _repository.GetMany();
+            if (equipmentModel is null)
+            {
+                AddNotification(EquipmentModelConstants.EquipmentModelEmpty, EquipmentModelConstants.EquipmentModelEmptyMsg);
+            }
+            return _mapper.Map<List<EquipmentModelDto>>(equipmentModel);
+        }
+
+        public void Update(EquipmentModelDto equipmentModelDto)
+        {
+            _repository.EnsureCreatedDatabase();
+
+            var equipmentModel = _repository.Get(equipmentModelDto.Id);
+            equipmentModel.Update(equipmentModelDto.ModelName);
+            AddNotifications(equipmentModel);
+
+            if (!IsValid)
+                return;
+
+            _repository.Update(equipmentModel);
+            _repository.SaveChanges();
         }
 
         public void Delete(EquipmentModelDto equipmentModelDto)
         {
-            _repository.Delete(equipmentModelDto.Name);
+            _repository.EnsureCreatedDatabase();
+
+            _repository.Delete(equipmentModelDto.Id);
         }
     }
 }

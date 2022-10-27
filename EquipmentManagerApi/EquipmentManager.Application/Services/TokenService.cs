@@ -1,4 +1,6 @@
-﻿using EquipmentManager.Domain.Entities;
+﻿using EquipmentManager.Application.Interfaces;
+using EquipmentManager.Application.Settings;
+using EquipmentManager.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace EquipmentManager.Application.Services
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         public string GenerateToken(User user)
         {

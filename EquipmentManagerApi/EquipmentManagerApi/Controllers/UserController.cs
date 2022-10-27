@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
-using EquipmentManager.Application.Services;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
 using EquipmentManagerApi.Controllers.Responses;
@@ -14,9 +14,9 @@ namespace EquipmentManagerApi.Controllers
     public class UserController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly UserService _service;
+        private readonly IUserService _service;
 
-        public UserController(UserService service, IMapper mapper)
+        public UserController(IUserService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -139,7 +139,7 @@ namespace EquipmentManagerApi.Controllers
 
         [HttpDelete]
         [AllowAnonymous]
-        
+
         public async Task<IActionResult> Delete(DeleteUserRequest request)
         {
             try

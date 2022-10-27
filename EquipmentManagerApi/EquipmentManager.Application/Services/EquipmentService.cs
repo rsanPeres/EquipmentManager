@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
 using EquipmentManager.Application.Interfaces;
+using EquipmentManager.Domain.Constants;
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using Flunt.Notifications;
@@ -42,7 +43,7 @@ namespace EquipmentManager.Application.Services
 
             if (equipment is null)
             {
-                AddNotification("equipment_isnull", "Equipment not found");
+                AddNotification(EquipmentConstants.EquipmentNull, EquipmentConstants.EquipmentNullMsg);
                 return null;
             }
 
@@ -56,7 +57,7 @@ namespace EquipmentManager.Application.Services
             var equipment = _equipmentRepository.GetMany();
             if (equipment is null)
             {
-                AddNotification("equipment_isEmpty", "Equipment list is empty");
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
             }
             return _mapper.Map<List<EquipmentDto>>(equipment);
         }

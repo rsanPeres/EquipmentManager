@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EquipmentManager.Application.Dtos;
+using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Application.Services;
 using EquipmentManagerApi.Controllers.Requests;
 using EquipmentManagerApi.Controllers.Requests.Validators;
@@ -13,9 +14,9 @@ namespace EquipmentManagerApi.Controllers
     public class EquipmentModelController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly EquipmentModelService _service;
+        private readonly IEquipmentModelService _service;
 
-        public EquipmentModelController(EquipmentModelService service, IMapper mapper)
+        public EquipmentModelController(IEquipmentModelService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;

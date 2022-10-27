@@ -4,6 +4,7 @@ using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using Flunt.Notifications;
+using EquipmentManager.Domain.Constants;
 
 namespace EquipmentManager.Application.Services
 {
@@ -39,7 +40,7 @@ namespace EquipmentManager.Application.Services
             
             if (user is null)
             {
-                AddNotification("user_isnull", "User not found");
+                AddNotification(UserConstants.UserNull, UserConstants.UserNullMsg);
                 return null;
             }
             var userDto = _mapper.Map<UserDto>(user);
@@ -53,7 +54,7 @@ namespace EquipmentManager.Application.Services
             var user = _repository.GetMany();
             if (user is null)
             {
-                AddNotification("user_isEmpty", "user list is empty");
+                AddNotification(UserConstants.UserEmpty, UserConstants.UserEmptyMsg);
             }
             return _mapper.Map<List<UserDto>>(user);
         }

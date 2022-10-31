@@ -39,7 +39,7 @@ namespace EquipmentManager.Application.Services
             var equipmentModel = _repository.Get(equipmentModelDto.Id);
             if (equipmentModel is null)
             {
-                AddNotification(EquipmentModelConstants.EquipmentModelNull, EquipmentConstants.EquipmentNullMsg);
+                AddNotification(EquipmentModelConstants.EquipmentModelNull, EquipmentModelConstants.EquipmentNullMsg);
                 return null;
             }
             return _mapper.Map<EquipmentModelDto>(equipmentModel);

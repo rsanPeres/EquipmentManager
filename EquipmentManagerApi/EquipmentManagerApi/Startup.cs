@@ -8,7 +8,6 @@ using EquipmentManager.Repository;
 using EquipmentManager.Repository.Repositories;
 using EquipmentManagerApi.Mappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -70,6 +69,7 @@ namespace BreakevenStoneApi
             services.AddScoped<IEquipmentModelStateHourlyEarningRepository, EquipmentModelStateHourlyEarningRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEquipmentStateRepository, EquipmentStateRepository>();
+            services.AddScoped<IEquipmentPositionHistoryRepository, EquipmentPositionHistoryRepository>();
         }
 
         private static void AddApplicationServices(IServiceCollection services)
@@ -81,6 +81,7 @@ namespace BreakevenStoneApi
             services.AddScoped<IEquipmentModelService, EquipmentModelService>();
             services.AddScoped<IEquipmentModelStateHourlyEarningService, EquipmentModelStateHourlyEarningService>();
             services.AddScoped<IEquipmentStateService, EquipmentStateService>();
+            services.AddScoped<IEquipmentPositionHistoryService, EquipmentPositionHistoryService>();
 
         }
 
@@ -93,6 +94,7 @@ namespace BreakevenStoneApi
                 mc.AddProfile(new EquipmentModelMappers());
                 mc.AddProfile(new EquipmentModelStateHourlyEarningMappers());
                 mc.AddProfile(new EquipmentStateMappers());
+                mc.AddProfile(new EquipmentPositionHistoryMappers());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

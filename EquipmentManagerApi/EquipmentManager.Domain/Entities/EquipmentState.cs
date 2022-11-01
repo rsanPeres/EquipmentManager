@@ -19,6 +19,8 @@ namespace EquipmentManager.Domain.Entities
 
             StateName = stateName;
             EquipmentColor = equipmentColor;
+            EquipmentsStateHourlyEarning = new List<EquipmentModelStateHourlyEarning>();
+            EquipmentStatesHistory = new List<EquipmentStateHistory>();
         }
 
         public void Validate(string stateName, string equipmentColor)

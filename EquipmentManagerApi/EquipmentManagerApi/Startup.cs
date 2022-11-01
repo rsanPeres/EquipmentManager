@@ -67,7 +67,9 @@ namespace BreakevenStoneApi
         {
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
             services.AddScoped<IEquipmentModelRepository, EquipmentModelRepository>();
+            services.AddScoped<IEquipmentModelStateHourlyEarningRepository, EquipmentModelStateHourlyEarningRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IEquipmentStateRepository, EquipmentStateRepository>();
         }
 
         private static void AddApplicationServices(IServiceCollection services)
@@ -77,6 +79,9 @@ namespace BreakevenStoneApi
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<TokenService, TokenService>();
             services.AddScoped<IEquipmentModelService, EquipmentModelService>();
+            services.AddScoped<IEquipmentModelStateHourlyEarningService, EquipmentModelStateHourlyEarningService>();
+            services.AddScoped<IEquipmentStateService, EquipmentStateService>();
+
         }
 
         private static void AddApplicationMappers(IServiceCollection services)
@@ -86,6 +91,8 @@ namespace BreakevenStoneApi
                 mc.AddProfile(new UserMappers());
                 mc.AddProfile(new EquipmentMappers());
                 mc.AddProfile(new EquipmentModelMappers());
+                mc.AddProfile(new EquipmentModelStateHourlyEarningMappers());
+                mc.AddProfile(new EquipmentStateMappers());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

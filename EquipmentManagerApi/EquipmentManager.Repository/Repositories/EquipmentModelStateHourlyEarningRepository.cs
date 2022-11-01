@@ -4,7 +4,7 @@ using EquipmentManager.Infrastructure;
 namespace EquipmentManager.Repository.Repositories
 {
 
-    public class EquipmentModelStateHourlyEarningRepository : IEquipmentModelStateHourlyEarning
+    public class EquipmentModelStateHourlyEarningRepository : IEquipmentModelStateHourlyEarningRepository
     {
         private readonly ApplicationContext _appContext;
 

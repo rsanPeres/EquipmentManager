@@ -2,7 +2,7 @@
 
 namespace EquipmentManager.Repository.Repositories
 {
-    public interface IEquipmentModelStateHourlyEarning
+    public interface IEquipmentModelStateHourlyEarningRepository
     {
         public void Create(EquipmentModelStateHourlyEarning hourlyEarning);
         public void Delete(EquipmentModelStateHourlyEarning equipmentHourlyEarning);

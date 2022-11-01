@@ -11,12 +11,12 @@ namespace EquipmentManager.Application.Services
 {
     public class EquipmentModelStateHourlyEarningService : Notifiable<Notification>, IEquipmentModelStateHourlyEarningService
     {
-        private readonly IEquipmentModelStateHourlyEarning _repository;
+        private readonly IEquipmentModelStateHourlyEarningRepository _repository;
         private readonly IEquipmentModelRepository _modelRepository;
-        private readonly IEquipmentState _stateRepository;
+        private readonly IEquipmentStateRepository _stateRepository;
         private readonly IMapper _mapper;
 
-        public EquipmentModelStateHourlyEarningService(IMapper mapper, IEquipmentModelStateHourlyEarning repository, IEquipmentModelRepository repositoryRepository, IEquipmentState stateRepository)
+        public EquipmentModelStateHourlyEarningService(IMapper mapper, IEquipmentModelStateHourlyEarningRepository repository, IEquipmentModelRepository repositoryRepository, IEquipmentStateRepository stateRepository)
         {
             _mapper = mapper;
             _repository = repository;

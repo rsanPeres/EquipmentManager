@@ -25,8 +25,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .WithMany(x => x.EquipmentStatesHistory);
 
             builder.HasOne(x => x.EquipmentState)
-                .WithMany(x => x.EquipmentStatesHistory)
-                .HasForeignKey(x => x.EquipmentStateId);
+                .WithMany(x => x.EquipmentStatesHistory);
         }
     }
 }

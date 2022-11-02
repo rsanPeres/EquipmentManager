@@ -70,6 +70,7 @@ namespace BreakevenStoneApi
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEquipmentStateRepository, EquipmentStateRepository>();
             services.AddScoped<IEquipmentPositionHistoryRepository, EquipmentPositionHistoryRepository>();
+            services.AddScoped<IEquipmentStateHistoryRepository, EquipmentStateHistoryRepository>();
         }
 
         private static void AddApplicationServices(IServiceCollection services)
@@ -82,6 +83,7 @@ namespace BreakevenStoneApi
             services.AddScoped<IEquipmentModelStateHourlyEarningService, EquipmentModelStateHourlyEarningService>();
             services.AddScoped<IEquipmentStateService, EquipmentStateService>();
             services.AddScoped<IEquipmentPositionHistoryService, EquipmentPositionHistoryService>();
+            services.AddScoped<IEquipmentStateHistoryService, EquipmentStateHistoryService>();
 
         }
 
@@ -95,6 +97,7 @@ namespace BreakevenStoneApi
                 mc.AddProfile(new EquipmentModelStateHourlyEarningMappers());
                 mc.AddProfile(new EquipmentStateMappers());
                 mc.AddProfile(new EquipmentPositionHistoryMappers());
+                mc.AddProfile(new EquipmentStateHistoryMappers());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

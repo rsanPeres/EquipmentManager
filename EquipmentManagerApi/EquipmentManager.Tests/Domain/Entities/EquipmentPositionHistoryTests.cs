@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using EquipmentManager.Domain.Entities;
+using System;
 using Xunit;
 
 namespace EquipmentManager.Tests.Domain.Entities
@@ -17,8 +18,10 @@ namespace EquipmentManager.Tests.Domain.Entities
         {
             var latitude = string.Empty;
             var longitude = _fixture.Create<string>();
+            var equipment = _fixture.Create<Equipment>();
+            var positionDate = DateTime.UtcNow;
 
-            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude);
+            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude,positionDate, equipment);
 
             Assert.False(equipmentPositionHistory.IsValid);
             Assert.Null(equipmentPositionHistory.Latitude);
@@ -30,8 +33,10 @@ namespace EquipmentManager.Tests.Domain.Entities
         {
             var latitude = "xp";
             var longitude = _fixture.Create<string>();
+            var equipment = _fixture.Create<Equipment>();
+            var positionDate = DateTime.UtcNow;
 
-            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude);
+            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, positionDate, equipment);
 
             Assert.False(equipmentPositionHistory.IsValid);
             Assert.Null(equipmentPositionHistory.Latitude);
@@ -43,7 +48,10 @@ namespace EquipmentManager.Tests.Domain.Entities
         {
             var longitude = _fixture.Create<string>();
             var latitude = _fixture.Create<string>();
-            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude);
+            var equipment = _fixture.Create<Equipment>();
+            var positionDate = DateTime.UtcNow;
+
+            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, positionDate, equipment);
 
             Assert.True(equipmentPositionHistory.IsValid);
             Assert.NotEmpty(equipmentPositionHistory.Latitude);

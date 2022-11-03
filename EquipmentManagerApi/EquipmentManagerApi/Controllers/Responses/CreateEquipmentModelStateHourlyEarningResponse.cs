@@ -4,8 +4,8 @@ namespace EquipmentManagerApi.Controllers.Responses
 {
     public class CreateEquipmentModelStateHourlyEarningResponse
     {
-        public EquipmentModel EquipmentModel { get; private set; }
-        public EquipmentState EquipmentState { get; private set; }
-        public Decimal EarnedValueByHourState { get; private set; }
+        public EquipmentModel EquipmentModel { get; set; }
+        public EquipmentState EquipmentState { get; set; }
+        public Decimal EarnedValueByHourState { get; set; }
     }
 }

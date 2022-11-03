@@ -7,24 +7,24 @@ namespace EquipmentManager.Domain.Entities
     {
 
         public int Id { get; private set; }
-        public string ModelName { get; private set; }
+        public string Name { get; private set; }
         public ICollection<Equipment> Equipments { get; private set; }
         public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
 
-        public EquipmentModel(string modelName)
+        public EquipmentModel(string name)
         {
-            Validate(modelName);
+            Validate(name);
 
             if (!IsValid)
                 return;
-            ModelName = modelName;
+            Name = name;
             Equipments = new List<Equipment>();
             EquipmentsStateHourlyEarning = new List<EquipmentModelStateHourlyEarning>();
         }
 
         public void setModelName(string name)
         {
-            this.ModelName = name;
+            this.Name = name;
         }
 
         public void Update(string name)
@@ -32,7 +32,7 @@ namespace EquipmentManager.Domain.Entities
             Validate(name);
             if(!IsValid)
                 return ;
-            ModelName = name;
+            Name = name;
         }
 
         public void Validate(string name)

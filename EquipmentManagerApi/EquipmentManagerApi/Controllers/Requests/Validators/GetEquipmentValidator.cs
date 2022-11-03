@@ -6,7 +6,7 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
     {
         public GetEquipmentValidator()
         {
-            RuleFor(p => p.Name)
+            RuleFor(p => p.Id)
                 .NotNull()
                 .NotEmpty();
         }

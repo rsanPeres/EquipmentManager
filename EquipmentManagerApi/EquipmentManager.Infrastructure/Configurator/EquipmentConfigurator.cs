@@ -18,9 +18,9 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .Property(p => p.Id)
                 .HasColumnName("Id_Equipment");
             builder
-                .Property(p => p.Name).HasColumnName("Name_Equipment")
+                .Property(p => p.Name)
                 .HasColumnType("varchar(50)").IsRequired();
-
+             
             builder.HasOne(x => x.EquipmentModel)
                 .WithMany(x => x.Equipments);
 

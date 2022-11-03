@@ -1,12 +1,13 @@
-﻿using EquipmentManager.Domain.Entities;
+﻿using EquipmentManager.Application.Dtos;
+using EquipmentManager.Domain.Entities;
 
 namespace EquipmentManagerApi.Controllers.Requests
 {
     public class CreateEquipmentPositionHistoryRequest
     {
-        public DateTime DateRegisteredPosition { get; private set; }
-        public string Latitude { get; private set; }
-        public string Length { get; private set; }
-        public Equipment Equipment { get; private set; }
+        public DateTime DateRegisteredPosition { get; set; }
+        public string Latitude { get; set; }
+        public string Length { get; set; }
+        public EquipmentDto Equipment { get; set; }
     }
 }

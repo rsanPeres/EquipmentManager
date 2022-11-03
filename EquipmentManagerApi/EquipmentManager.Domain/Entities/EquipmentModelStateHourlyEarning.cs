@@ -11,15 +11,16 @@ namespace EquipmentManager.Domain.Entities
         public EquipmentState EquipmentState { get; private set; }
         public Decimal EarnedValueByHourState { get; private set; }
 
-        public EquipmentModelStateHourlyEarning(decimal earnedValueByHourState, EquipmentModel model, EquipmentState state)
+        protected EquipmentModelStateHourlyEarning() { }
+        public EquipmentModelStateHourlyEarning(decimal earnedValueByHourState,EquipmentModel equipmentModel, EquipmentState equipmentState)
         {
             Validate(earnedValueByHourState);
             if (!IsValid)
                 return;
 
             EarnedValueByHourState = earnedValueByHourState;
-            EquipmentModel = model;
-            EquipmentState = state;
+            EquipmentModel = equipmentModel;
+            EquipmentState = equipmentState;
         }
 
         public void Validate(decimal earnedValue)

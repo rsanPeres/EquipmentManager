@@ -24,7 +24,7 @@ namespace EquipmentManager.Application.Services
         {
             var equipment = _equipmentRepository.Get(equipmentPositionDto.Equipment.Id);
             var equipmentPosition = new EquipmentPositionHistory
-                (equipmentPositionDto.Latitude, equipmentPositionDto.Length, equipmentPositionDto.DateRegisteredPosition, equipment);
+                (equipmentPositionDto.Latitude, equipmentPositionDto.Length, equipment);
             AddNotifications(equipmentPosition);
 
             if (!IsValid)

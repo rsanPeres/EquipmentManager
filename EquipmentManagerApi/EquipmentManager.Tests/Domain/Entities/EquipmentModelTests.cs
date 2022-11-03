@@ -20,7 +20,7 @@ namespace EquipmentManager.Tests.Domain.Entities
             var equipmentModel = new EquipmentModel(name);
 
             Assert.False(equipmentModel.IsValid);
-            Assert.Null(equipmentModel.ModelName);
+            Assert.Null(equipmentModel.Name);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace EquipmentManager.Tests.Domain.Entities
             var equipmentModel = new EquipmentModel(name);
 
             Assert.False(equipmentModel.IsValid);
-            Assert.Null(equipmentModel.ModelName);
+            Assert.Null(equipmentModel.Name);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace EquipmentManager.Tests.Domain.Entities
             var equipmentModel = new EquipmentModel(name);
 
             Assert.True(equipmentModel.IsValid);
-            Assert.NotEmpty(equipmentModel.ModelName);
+            Assert.NotEmpty(equipmentModel.Name);
         }
     }
 }

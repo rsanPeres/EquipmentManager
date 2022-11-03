@@ -4,7 +4,7 @@ namespace EquipmentManagerApi.Controllers.Responses
 {
     public class GetEquipmentStateHistoryResponse
     {
-        public int Id { get; private set; }
-        public DateTime ReportedStatusStartDate { get; private set; }
+        public int Id { get; set; }
+        public DateTime ReportedStatusStartDate { get; set; }
     }
 }

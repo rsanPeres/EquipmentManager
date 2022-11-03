@@ -11,9 +11,10 @@ namespace EquipmentManager.Domain.Entities
         public Equipment Equipment { get; private set; }
         public EquipmentState EquipmentState { get; private set; }
 
+        public EquipmentStateHistory() { }
         public EquipmentStateHistory(DateTime reportedStatusStartDate, Equipment equipment, EquipmentState equipmentState)
         {
-            Validate(reportedStatusStartDate, equipment, equipmentState);
+            Validate(reportedStatusStartDate);
             if(!IsValid)
                 return;
 
@@ -22,12 +23,12 @@ namespace EquipmentManager.Domain.Entities
             EquipmentState = equipmentState;
         }
 
-        public void Validate(DateTime date, Equipment equipment, EquipmentState equipmentState)
+        public void Validate(DateTime date)
         {
             AddNotifications(new Contract<Notification>()
                 .IsGreaterThan(date, DateTime.UtcNow, "Invalid_Date", "Invalid date")
-                .IsNotNull(equipment, "Null_Equipment", "Equipment should not be null")
-                .IsNotNull(equipmentState, "Null_Equipment_State", "EquipmentState should not be null")
+                //.IsNotNull(equipment, "Null_Equipment", "Equipment should not be null")
+                //.IsNotNull(equipmentState, "Null_Equipment_State", "EquipmentState should not be null")
                 );
         }
     }

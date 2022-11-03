@@ -4,7 +4,7 @@ namespace EquipmentManagerApi.Controllers.Requests
 {
     public class DeleteEquipmentModelStateHourlyEarningRequest
     {
-        public int EquipmentModelId { get; private set; }
-        public int EquipmentStateId { get; private set; }
+        public int EquipmentModelId { get; set; }
+        public int EquipmentStateId { get; set; }
     }
 }

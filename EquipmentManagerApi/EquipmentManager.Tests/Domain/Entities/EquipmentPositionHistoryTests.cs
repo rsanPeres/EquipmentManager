@@ -21,7 +21,7 @@ namespace EquipmentManager.Tests.Domain.Entities
             var equipment = _fixture.Create<Equipment>();
             var positionDate = DateTime.UtcNow;
 
-            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude,positionDate, equipment);
+            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, equipment);
 
             Assert.False(equipmentPositionHistory.IsValid);
             Assert.Null(equipmentPositionHistory.Latitude);
@@ -36,7 +36,7 @@ namespace EquipmentManager.Tests.Domain.Entities
             var equipment = _fixture.Create<Equipment>();
             var positionDate = DateTime.UtcNow;
 
-            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, positionDate, equipment);
+            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, equipment);
 
             Assert.False(equipmentPositionHistory.IsValid);
             Assert.Null(equipmentPositionHistory.Latitude);
@@ -51,7 +51,7 @@ namespace EquipmentManager.Tests.Domain.Entities
             var equipment = _fixture.Create<Equipment>();
             var positionDate = DateTime.UtcNow;
 
-            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, positionDate, equipment);
+            var equipmentPositionHistory = new EquipmentPositionHistory(latitude, longitude, equipment);
 
             Assert.True(equipmentPositionHistory.IsValid);
             Assert.NotEmpty(equipmentPositionHistory.Latitude);

@@ -25,7 +25,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .Property(p => p.Password).HasColumnName("Password")
                 .HasColumnType("varchar(100)").IsRequired();
             builder
-                .Property(p => p.UserName).HasColumnName("User_Name")
+                .Property(p => p.UserName)
                 .HasColumnType("varchar(50)").IsRequired();
             builder
                 .Property(p => p.Role).HasConversion<EnumToStringConverter<RoleNames>>();

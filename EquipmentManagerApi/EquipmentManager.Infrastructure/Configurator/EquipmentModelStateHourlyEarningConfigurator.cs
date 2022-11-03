@@ -18,16 +18,17 @@ namespace EquipmentManager.Infrastructure.Configurator
             builder
                 .ToTable("Equipment_Model_State_Hourly_Earning");
             builder
-                .HasKey(x => new {x.EquipmentStateId, x.EquipmentModelId })
+                .HasKey(x => new {x.EquipmentStateId, x.EquipmentModelId})
                 .HasName("Id_EquipmentModelStateHourlyEarning");
 
             builder.HasOne(x => x.EquipmentModel)
-                .WithMany(x => x.EquipmentsStateHourlyEarning)
-                .HasForeignKey(x => x.EquipmentModelId);
+                .WithMany(x => x.EquipmentsStateHourlyEarning);
 
             builder.HasOne(x => x.EquipmentState)
-                .WithMany(x => x.EquipmentsStateHourlyEarning)
-                .HasForeignKey(x => x.EquipmentStateId);
+                .WithMany(x => x.EquipmentsStateHourlyEarning);
+
+            builder.Ignore(x => x.Notifications);
+            builder.Ignore(x => x.IsValid);
         }
     }
 }

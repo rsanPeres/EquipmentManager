@@ -22,8 +22,8 @@ namespace EquipmentManager.Application.Services
 
         public void Create(EquipmentStateHistoryDto stateHistoryDto)
         {
+            var equipmentState = _mapper.Map<EquipmentState>(stateHistoryDto.EquipmentState);
             var equipment = _equipmentRepository.Get(stateHistoryDto.Equipment.Id);
-            var equipmentState = _equipmentStateRepository.Get(stateHistoryDto.EquipmentState.Id);
             var equipmentStateHistory = new EquipmentStateHistory(stateHistoryDto.ReportedStatusStartDate, equipment, equipmentState);
             AddNotifications(equipmentStateHistory);
 

@@ -21,7 +21,7 @@ namespace EquipmentManager.Application.Services
 
         public void Create(EquipmentModelDto equipmentDto)
         {
-            var equipmentModel = new EquipmentModel(equipmentDto.ModelName);
+            var equipmentModel = new EquipmentModel(equipmentDto.Name);
             AddNotifications(equipmentModel);
 
             if (!IsValid)
@@ -61,7 +61,7 @@ namespace EquipmentManager.Application.Services
             _repository.EnsureCreatedDatabase();
 
             var equipmentModel = _repository.Get(equipmentModelDto.Id);
-            equipmentModel.Update(equipmentModelDto.ModelName);
+            equipmentModel.Update(equipmentModelDto.Name);
             AddNotifications(equipmentModel);
 
             if (!IsValid)

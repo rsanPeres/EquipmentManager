@@ -2,7 +2,7 @@
 {
     public class CreateEquipmentStateRequest
     {
-        public string StateName { get; private set; }
-        public string EquipmentColor { get; private set; }
+        public string StateName { get; set; }
+        public string EquipmentColor { get; set; }
     }
 }

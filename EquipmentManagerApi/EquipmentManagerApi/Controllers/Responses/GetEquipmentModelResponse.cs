@@ -1,8 +1,11 @@
-﻿namespace EquipmentManagerApi.Controllers.Responses
+﻿using EquipmentManager.Domain.Entities;
+
+namespace EquipmentManagerApi.Controllers.Responses
 {
     public class GetEquipmentModelResponse
     {
-        public string ModelName { get; set; }
+        public string Name { get; set; }
+        public List<Equipment> Equipments{ get; set; }
 
     }
 }

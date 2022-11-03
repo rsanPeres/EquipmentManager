@@ -4,10 +4,10 @@ namespace EquipmentManager.Application.Dtos
 {
     public class EquipmentStateDto
     {
-        public int Id { get; private set; }
-        public string StateName { get; private set; }
-        public string EquipmentColor { get; private set; }
-        public ICollection<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; private set; }
-        public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
+        public int Id { get; set; }
+        public string StateName { get; set; }
+        public string EquipmentColor { get; set; }
+        public List<EquipmentModelStateHourlyEarning> EquipmentsStateHourlyEarning { get; set; }
+        public List<EquipmentStateHistory> EquipmentStatesHistory { get; set; }
     }
 }

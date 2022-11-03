@@ -40,7 +40,7 @@ namespace EquipmentManager.Application.Services
             _equipmentRepository.EnsureCreatedDatabase();
 
             var equipment = _equipmentRepository.Get(id);
-
+            
             if (equipment is null)
             {
                 AddNotification(EquipmentConstants.EquipmentNull, EquipmentConstants.EquipmentNullMsg);

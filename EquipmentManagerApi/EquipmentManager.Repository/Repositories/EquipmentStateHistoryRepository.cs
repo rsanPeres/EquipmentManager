@@ -34,6 +34,18 @@ namespace EquipmentManager.Repository.Repositories
             return StateHistory;
         }
 
+        public List<EquipmentStateHistory> GetManyByEquipment(int id)
+        {
+            var EquipmentStateHistory = _appContext.EquipmentsStateHistory.Where(x => x.Equipment.Id == id).ToList<EquipmentStateHistory>();
+            return EquipmentStateHistory;
+        }
+
+        public EquipmentStateHistory GetLastByEquipment(int id)
+        {
+            var state = _appContext.EquipmentsStateHistory.OrderByDescending(x =>x.Equipment.Id == id).FirstOrDefault();
+            return state;
+        }
+
         public void Delete(int id)
         {
             var StateHistory = Get(id);

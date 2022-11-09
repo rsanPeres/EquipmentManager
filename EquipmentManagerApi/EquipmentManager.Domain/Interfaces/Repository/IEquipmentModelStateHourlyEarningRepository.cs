@@ -8,7 +8,7 @@ namespace EquipmentManager.Repository.Repositories
         public void Delete(EquipmentModelStateHourlyEarning equipmentHourlyEarning);
         public void EnsureCreatedDatabase();
         public EquipmentModelStateHourlyEarning Get(EquipmentModelStateHourlyEarning hourlyEarning);
-        public List<EquipmentModelStateHourlyEarning> GetMany();
+        public List<Dictionary<decimal, string>> GetMany();
         public void SaveChanges();
 
     }

@@ -13,24 +13,14 @@ namespace EquipmentManager.Infrastructure
         public virtual DbSet<EquipmentState> EquipmentsState { get; set; }
         public virtual DbSet<EquipmentStateHistory> EquipmentsStateHistory { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> opt) : base(opt)
-        {
+        public ApplicationContext(DbContextOptions<ApplicationContext> opt) : base(opt) {  }
 
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder
-            //    .UseSqlServer(
-            //        "Data source=(localdb)\\mssqllocaldb; Initial Catalog=EquipmentManager; Integrated Security=true");
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {  }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
             modelBuilder.Ignore("Notification");
-
-
         }
     }
 }

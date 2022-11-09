@@ -27,7 +27,7 @@ namespace EquipmentManager.Tests.Service
         public void GivenAValidEquipment_ShouldCreateOnRepository()
         {
             var userDto = _fixture.Create<UserDto>();
-            var service = new EquipmentService(_equipmentRepository.Object, _modelRepository.Object, AutomapperSingleton.Mapper);
+            //var service = new EquipmentService(_equipmentRepository.Object, _modelRepository.Object, AutomapperSingleton.Mapper);
 
          
         }

@@ -8,5 +8,7 @@ namespace EquipmentManager.Application.Interfaces
         void Delete(int id);
         EquipmentStateHistoryDto Get(int id);
         List<EquipmentStateHistoryDto> GetMany();
+        List<EquipmentStateHistoryDto> GetManyByEquipment(int id);
+
     }
 }

@@ -81,6 +81,114 @@ namespace EquipmentManagerApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetManyState")]
+        public IActionResult GetByEquipment(GetEquipmentStateHistoryRequest request)
+        {
+            try
+            {
+                GetEquipmentStateHistoryValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentStateHistory = _service.GetManyByEquipment(request.Id);
+
+                var ret = _mapper.Map<GetEquipmentStateHistoryResponse>(equipmentStateHistory);
+                var response = new ApiResponse<GetEquipmentStateHistoryResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetLastState")]
+        public IActionResult GetLastState(GetEquipmentStateHistoryRequest request)
+        {
+            try
+            {
+                GetEquipmentStateHistoryValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentStateHistory = _service.GetLastStateEquipment(request.Id);
+
+                var ret = _mapper.Map<GetEquipmentStateHistoryResponse>(equipmentStateHistory);
+                var response = new ApiResponse<GetEquipmentStateHistoryResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
+        [HttpGet]
+        [Route("positionByEquipment")]
+        public IActionResult GetByEquipment(GetEquipmentRequest request)
+        {
+            try
+            {
+                GetEquipmentValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentPositionHistory = _service.PositionByEquipment(request.Id);
+
+                var ret = new GetEquipmentPositionHistoryResponse();
+                var response = new ApiResponse<GetEquipmentPositionHistoryResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(equipmentPositionHistory);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateEquipmentRequest request)
         {

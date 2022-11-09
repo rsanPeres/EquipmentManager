@@ -4,6 +4,7 @@ using EquipmentManager.Application.Interfaces;
 using EquipmentManager.Domain.Constants;
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
+using EquipmentManager.Repository.Factory;
 using Flunt.Notifications;
 
 namespace EquipmentManager.Application.Services
@@ -12,12 +13,18 @@ namespace EquipmentManager.Application.Services
     {
         private readonly IEquipmentRepository _equipmentRepository;
         private readonly IEquipmentModelRepository _equipmentModelRepository;
+        private readonly IEquipmentStateHistoryRepository _equipmentStateHistoryRepository; 
         private readonly IMapper _mapper;
-        public EquipmentService(IEquipmentRepository equipmentRepository, IEquipmentModelRepository equipmentModelRepository, IMapper mapper)
+        private readonly IEquipmentFactory _factory;
+        private readonly IEquipmentPositionHistoryRepository _equipmentPositionHistoryRepository;
+
+        public EquipmentService(IEquipmentRepository equipmentRepository, IEquipmentModelRepository equipmentModelRepository, IMapper mapper, IEquipmentStateHistoryRepository equipmentStateHistoryRepository, IEquipmentPositionHistoryRepository equipmentPositionHistoryRepository)
         {
             _equipmentRepository = equipmentRepository;
             _equipmentModelRepository = equipmentModelRepository;
             _mapper = mapper;
+            _equipmentStateHistoryRepository = equipmentStateHistoryRepository;
+            _equipmentPositionHistoryRepository = equipmentPositionHistoryRepository;
         }
 
         public void Create(EquipmentDto equipmentDto)
@@ -40,7 +47,7 @@ namespace EquipmentManager.Application.Services
             _equipmentRepository.EnsureCreatedDatabase();
 
             var equipment = _equipmentRepository.Get(id);
-            
+
             if (equipment is null)
             {
                 AddNotification(EquipmentConstants.EquipmentNull, EquipmentConstants.EquipmentNullMsg);
@@ -60,6 +67,44 @@ namespace EquipmentManager.Application.Services
                 AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
             }
             return _mapper.Map<List<EquipmentDto>>(equipment);
+        }
+
+        public List<EquipmentStateHistoryDto> GetManyByEquipment(int id)
+        {
+            _equipmentStateHistoryRepository.EnsureCreatedDatabase();
+
+            var equipmentStateHistory = _equipmentStateHistoryRepository.GetManyByEquipment(id);
+            if (equipmentStateHistory is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return _mapper.Map<List<EquipmentStateHistoryDto>>(equipmentStateHistory);
+
+        }
+
+        public EquipmentStateHistoryDto GetLastStateEquipment(int id)
+        {
+            _equipmentStateHistoryRepository.EnsureCreatedDatabase();
+
+            var equipmentStateHistory = _equipmentStateHistoryRepository.GetLastByEquipment(id);
+            if (equipmentStateHistory is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return _mapper.Map<EquipmentStateHistoryDto>(equipmentStateHistory);
+
+        }
+
+        public List<EquipmentPositionHistoryDto> PositionByEquipment(int id)
+        {
+            _equipmentPositionHistoryRepository.EnsureCreatedDatabase();
+            var listPositions = _equipmentPositionHistoryRepository.PositionByEquipment(id);
+
+            if (listPositions is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return _mapper.Map<List<EquipmentPositionHistoryDto>>(listPositions);
         }
 
         public void Update(EquipmentDto equipmentDto)

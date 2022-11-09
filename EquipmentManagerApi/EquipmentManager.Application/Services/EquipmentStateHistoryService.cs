@@ -62,6 +62,18 @@ namespace EquipmentManager.Application.Services
             }
             return _mapper.Map<List<EquipmentStateHistoryDto>>(equipmentStateHistory);
         }
+        public List<EquipmentStateHistoryDto> GetManyByEquipment(int id)
+        {
+            _repository.EnsureCreatedDatabase();
+
+            var equipmentStateHistory = _repository.GetManyByEquipment(id);
+            if (equipmentStateHistory is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return _mapper.Map<List<EquipmentStateHistoryDto>>(equipmentStateHistory);
+
+        }
 
         public void Delete(int id)
         {

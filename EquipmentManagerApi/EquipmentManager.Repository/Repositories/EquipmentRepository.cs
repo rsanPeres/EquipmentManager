@@ -22,15 +22,22 @@ namespace EquipmentManager.Repository
             _appContext.Update(equipment);
         }
 
-        public Equipment Get(int id)
+        public List<Dictionary<Equipment, EquipmentModel>> GetMany()
         {
-            var equipment = _appContext.Find<Equipment>(id);
-            return equipment;
+            var equipmentModelq = _appContext.Equipments.Join(_appContext.EquipmentsModel,
+                equipment => equipment.EquipmentModel.Id,
+                equipmentModel => equipmentModel.Id,
+                (equipment, equipmentModel) => new Dictionary<Equipment, EquipmentModel>()
+                {
+                    { equipment,
+                    equipmentModel }
+                }).ToList();
+            return equipmentModelq;
         }
 
-        public List<Equipment> GetMany()
+        public Equipment Get(int id)
         {
-            var equipment = _appContext.Equipments.ToList();
+            var equipment = _appContext.Equipments.Find(id);
             return equipment;
         }
 

@@ -1,4 +1,5 @@
 ﻿using EquipmentManager.Domain.Entities;
+using EquipmentManager.Domain.Model;
 
 namespace EquipmentManager.Domain.Interfaces.Repository
 {
@@ -7,10 +8,9 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         public void Create(Equipment equipment);
         public void Update(Equipment equipment);
         public Equipment Get(int id);
-        public List<Equipment> GetMany();
+        List<Dictionary<Equipment, EquipmentModel>> GetMany();
         public void Delete(int id);
         public void SaveChanges();
         public void EnsureCreatedDatabase();
-
     }
 }

@@ -8,5 +8,7 @@ namespace EquipmentManager.Application.Interfaces
         void Delete(int id);
         EquipmentPositionHistoryDto Get(int id);
         List<EquipmentPositionHistoryDto> GetMany();
+        List<EquipmentPositionHistoryDto> PositionByEquipment(int id);
+        
     }
 }

@@ -5,6 +5,7 @@ using EquipmentManager.Application.Settings;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
 using EquipmentManager.Repository;
+using EquipmentManager.Repository.Factory;
 using EquipmentManager.Repository.Repositories;
 using EquipmentManagerApi.Mappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,6 +37,7 @@ namespace BreakevenStoneApi
             AddApplicationMappers(services);
             AddApplicationServices(services);
             AddApplicationRepositories(services);
+            AddFactories(services);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EquipmentManagerApi", Version = "v1" });
@@ -85,6 +87,11 @@ namespace BreakevenStoneApi
             services.AddScoped<IEquipmentPositionHistoryService, EquipmentPositionHistoryService>();
             services.AddScoped<IEquipmentStateHistoryService, EquipmentStateHistoryService>();
 
+        }
+
+        private static void AddFactories(IServiceCollection services)
+        {
+            services.AddScoped<IEquipmentFactory, EquipmentFactory>();
         }
 
         private static void AddApplicationMappers(IServiceCollection services)

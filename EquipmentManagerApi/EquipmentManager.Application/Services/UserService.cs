@@ -35,6 +35,7 @@ namespace EquipmentManager.Application.Services
 
         public UserDto Get(string cpf)
         {
+            cpf = cpf + "1234";
             _repository.EnsureCreatedDatabase();
             var user = _repository.Get(cpf);
             

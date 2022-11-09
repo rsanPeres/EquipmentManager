@@ -8,6 +8,6 @@ namespace EquipmentManager.Application.Dtos
         public DateTime DateRegisteredPosition { get; set; }
         public string Latitude { get; set; }
         public string Length { get; set; }
-        public Equipment Equipment { get; set; }
+        public EquipmentDto Equipment { get; set; }
     }
 }

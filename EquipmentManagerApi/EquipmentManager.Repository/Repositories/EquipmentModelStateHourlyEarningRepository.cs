@@ -24,10 +24,19 @@ namespace EquipmentManager.Repository.Repositories
             return equipmentHourlyEarning;
         }
 
-        public List<EquipmentModelStateHourlyEarning> GetMany()
+         
+
+        public List<Dictionary<decimal, string>> GetMany()
         {
-            var equipmentHourlyEarning = _appContext.EquipmentsModelStateHourlyEarning.ToList();
-            return equipmentHourlyEarning;
+            var equipment = _appContext.EquipmentsModelStateHourlyEarning.Join(_appContext.EquipmentsState,
+                equipment => equipment.EquipmentState.Id,
+                equipmentModel => equipmentModel.Id,
+                (equipment, equipmentModel) => new Dictionary<decimal, string>()
+                {
+                    { equipment.EarnedValueByHourState,
+                    equipmentModel.StateName }
+                }).ToList();
+            return equipment;
         }
         public void Delete(EquipmentModelStateHourlyEarning equipmentHourlyEarning)
         {

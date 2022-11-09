@@ -65,7 +65,7 @@ namespace EquipmentManager.Tests.Service
 
             _repository.Verify(x => x.Get(It.IsAny<string>()), Times.Once);
             result.Should().Be(null);
-        }
+        }//comportamento do método
 
         [Fact]
         public void GivenAValidId_ShouldReturnAnUser()

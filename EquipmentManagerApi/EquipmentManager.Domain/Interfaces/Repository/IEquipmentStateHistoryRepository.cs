@@ -11,5 +11,7 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         List<EquipmentStateHistory> GetMany();
         void SaveChanges();
         void Update(EquipmentStateHistory StateHistory);
+        List<EquipmentStateHistory> GetManyByEquipment(int id);
+        EquipmentStateHistory GetLastByEquipment(int id);
     }
 }

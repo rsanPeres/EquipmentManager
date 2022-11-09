@@ -63,6 +63,19 @@ namespace EquipmentManager.Application.Services
             return _mapper.Map<List<EquipmentPositionHistoryDto>>(equipmentPosition);
         }
 
+
+        public List<EquipmentPositionHistoryDto> PositionByEquipment(int equipmentPosition)
+        {
+            _equipmentPositionRepository.EnsureCreatedDatabase();
+            var listPositions = _equipmentPositionRepository.PositionByEquipment(equipmentPosition);
+            
+            if (listPositions is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return _mapper.Map<List<EquipmentPositionHistoryDto>>(equipmentPosition);
+        }
+
         public void Delete(int id)
         {
             _equipmentPositionRepository.EnsureCreatedDatabase();

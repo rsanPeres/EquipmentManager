@@ -57,6 +57,42 @@ namespace EquipmentManagerApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetByEquipment")]
+        public IActionResult GetByEquipment(GetEquipmentStateHistoryRequest request)
+        {
+            try
+            {
+                GetEquipmentStateHistoryValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentStateHistory = _service.GetManyByEquipment(request.Id);
+
+                var ret = _mapper.Map<GetEquipmentStateHistoryResponse>(equipmentStateHistory);
+                var response = new ApiResponse<GetEquipmentStateHistoryResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateEquipmentStateHistoryRequest request)
         {

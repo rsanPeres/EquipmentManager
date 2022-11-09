@@ -57,6 +57,42 @@ namespace EquipmentManagerApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("positionByEquipment")]
+        public IActionResult GetByEquipment(GetEquipmentRequest request)
+        {
+            try
+            {
+                GetEquipmentValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentPositionHistory = _service.PositionByEquipment(request.Id);
+
+                var ret = new GetEquipmentPositionHistoryResponse();
+                var response = new ApiResponse<GetEquipmentPositionHistoryResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(equipmentPositionHistory);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateEquipmentPositionHistoryRequest request)
         {
@@ -95,8 +131,6 @@ namespace EquipmentManagerApi.Controllers
             }
         }
 
-        [HttpPatch]
-        
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteEquipmentPositionHistoryRequest request)
         {

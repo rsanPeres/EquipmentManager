@@ -15,7 +15,6 @@ namespace EquipmentManager.Repository.Repositories
 
         public void Create(User user)
         {
-            _appContext.Database.EnsureCreated();
             _appContext.Users.Add(user);
         }
 

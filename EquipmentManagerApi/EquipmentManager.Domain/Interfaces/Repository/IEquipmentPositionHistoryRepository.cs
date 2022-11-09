@@ -10,5 +10,6 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         EquipmentPositionHistory Get(int id);
         List<EquipmentPositionHistory> GetMany();
         void SaveChanges();
+        List<EquipmentPositionHistory> PositionByEquipment(int id);
     }
 }

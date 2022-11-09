@@ -21,7 +21,7 @@ namespace EquipmentManager.Tests.Domain.Entities
 
             Assert.False(equipment.IsValid);
             Assert.Null(equipment.Name);
-        }
+        }//testando biblioteca
 
         [Fact]
         public void GivenAnInvalidLengthName_ShouldNotAssignValueToProperty()

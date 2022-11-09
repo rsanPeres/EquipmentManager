@@ -1,4 +1,5 @@
 ﻿using EquipmentManager.Application.Dtos;
+using EquipmentManager.Domain.Entities;
 
 namespace EquipmentManager.Application.Interfaces
 {
@@ -9,5 +10,8 @@ namespace EquipmentManager.Application.Interfaces
         EquipmentDto Get(int id);
         List<EquipmentDto> GetMany();
         void Update(EquipmentDto equipmentDto);
+        public List<EquipmentStateHistoryDto> GetManyByEquipment(int id);
+        public List<EquipmentPositionHistoryDto> PositionByEquipment(int id);
+        public EquipmentStateHistoryDto GetLastStateEquipment(int id);
     }
 }

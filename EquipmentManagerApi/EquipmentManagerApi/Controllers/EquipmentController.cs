@@ -83,7 +83,7 @@ namespace EquipmentManagerApi.Controllers
 
         [HttpGet]
         [Route("GetManyState")]
-        public IActionResult GetByEquipment(GetEquipmentStateHistoryRequest request)
+        public IActionResult GetStatesByEquipment(GetEquipmentStateHistoryRequest request)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace EquipmentManagerApi.Controllers
 
         [HttpGet]
         [Route("GetLastState")]
-        public IActionResult GetLastState(GetEquipmentStateHistoryRequest request)
+        public IActionResult GetLastStateByEquipmentId(GetEquipmentStateHistoryRequest request)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace EquipmentManagerApi.Controllers
 
         [HttpGet]
         [Route("positionByEquipment")]
-        public IActionResult GetByEquipment(GetEquipmentRequest request)
+        public IActionResult GetPositionsByEquipment(GetEquipmentRequest request)
         {
             try
             {
@@ -176,6 +176,42 @@ namespace EquipmentManagerApi.Controllers
                     Messages = null
                 };
                 return Ok(equipmentPositionHistory);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
+
+        [HttpGet]
+        [Route("getModelByEquipmentId")]
+        public IActionResult GetModelByEquipmentId(GetEquipmentRequest request)
+        {
+            try
+            {
+                GetEquipmentValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentModel = _service.GetModelByEquipmentId(request.Id);
+
+                var ret = new GetEquipmentModelResponse();
+                var response = new ApiResponse<GetEquipmentModelResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(equipmentModel);
             }
             catch (Exception e)
             {

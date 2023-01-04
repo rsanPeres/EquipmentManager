@@ -1,6 +1,5 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
-using System.Security.Cryptography.X509Certificates;
 
 namespace EquipmentManager.Domain.Entities
 {
@@ -12,13 +11,9 @@ namespace EquipmentManager.Domain.Entities
         public EquipmentState EquipmentState { get; private set; }
 
         public EquipmentStateHistory() { }
-        public EquipmentStateHistory(DateTime reportedStatusStartDate, Equipment equipment, EquipmentState equipmentState)
+        public EquipmentStateHistory(Equipment equipment, EquipmentState equipmentState)
         {
-            Validate(reportedStatusStartDate);
-            if(!IsValid)
-                return;
-
-            ReportedStatusStartDate = reportedStatusStartDate;
+            ReportedStatusStartDate = DateTime.UtcNow;
             Equipment = equipment;
             EquipmentState = equipmentState;
         }

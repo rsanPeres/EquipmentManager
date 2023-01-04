@@ -5,6 +5,7 @@ using EquipmentManager.Domain.Constants;
 using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Repository.Factory;
+using EquipmentManager.Repository.Repositories;
 using Flunt.Notifications;
 
 namespace EquipmentManager.Application.Services
@@ -14,8 +15,8 @@ namespace EquipmentManager.Application.Services
         private readonly IEquipmentRepository _equipmentRepository;
         private readonly IEquipmentModelRepository _equipmentModelRepository;
         private readonly IEquipmentStateHistoryRepository _equipmentStateHistoryRepository; 
+        private readonly IEquipmentStateRepository _equipmentStateRepository; 
         private readonly IMapper _mapper;
-        private readonly IEquipmentFactory _factory;
         private readonly IEquipmentPositionHistoryRepository _equipmentPositionHistoryRepository;
 
         public EquipmentService(IEquipmentRepository equipmentRepository, IEquipmentModelRepository equipmentModelRepository, IMapper mapper, IEquipmentStateHistoryRepository equipmentStateHistoryRepository, IEquipmentPositionHistoryRepository equipmentPositionHistoryRepository)
@@ -31,6 +32,18 @@ namespace EquipmentManager.Application.Services
         {
             var equipmentModel = _equipmentModelRepository.Get(equipmentDto.EquipmentModel.Id);
             var equipment = new Equipment(equipmentDto.Name, equipmentModel);
+
+            var equipPosition = new EquipmentPositionHistory(equipmentDto.EquipmentPositionHistory.Latitude, equipmentDto.EquipmentPositionHistory.Length, equipment);
+            _equipmentPositionHistoryRepository.Create(equipPosition);
+            equipment.EquipmentPositionsHistory.Add(equipPosition);
+
+            var equipmentState = new EquipmentState(equipmentDto.EquipmentState.StateName, equipmentDto.EquipmentState.EquipmentColor);
+            //_equipmentStateRepository.Create(equipmentState);
+
+            var stateHistory = new EquipmentStateHistory(equipment, equipmentState);
+            _equipmentStateHistoryRepository.Create(stateHistory);
+            equipment.EquipmentStatesHistory.Add(stateHistory);
+
             AddNotifications(equipment);
 
             if (!IsValid)
@@ -105,6 +118,17 @@ namespace EquipmentManager.Application.Services
                 AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
             }
             return _mapper.Map<List<EquipmentPositionHistoryDto>>(listPositions);
+        }
+
+        public EquipmentModelDto GetModelByEquipmentId(int id)
+        {
+            _equipmentPositionHistoryRepository.EnsureCreatedDatabase();
+            var equipmentModel = _equipmentModelRepository.GetModelByEquipmentId(id);
+            if (equipmentModel is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return _mapper.Map<EquipmentModelDto>(equipmentModel);
         }
 
         public void Update(EquipmentDto equipmentDto)

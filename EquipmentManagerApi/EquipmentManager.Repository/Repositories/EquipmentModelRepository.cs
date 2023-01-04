@@ -41,6 +41,12 @@ namespace EquipmentManager.Repository.Repositories
             return equipmentModel;
         }
 
+        public EquipmentModel GetModelByEquipmentId(int id)
+        {
+            var equipmentModel = _appContext.EquipmentsModel.OrderByDescending(x => x.Equipments.Where(x => x.Id.Equals(id))).FirstOrDefault();
+            return equipmentModel;
+        }
+
         public void Delete(int id)
         {
             var equipmentModel = Get(id);

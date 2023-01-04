@@ -8,7 +8,6 @@ using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManagerApi.Mappers;
 using FluentAssertions;
 using Moq;
-using System;
 using Xunit;
 
 namespace EquipmentManager.Tests.Service
@@ -58,7 +57,7 @@ namespace EquipmentManager.Tests.Service
         {
             var user = _fixture.Build<User>().Create();
             user.SetEmployeeCpf(string.Empty);
-            _repository.Setup(x => x.Get(It.Is<string>(x => x.Equals(user.Cpf)))).Returns(value : null);
+            _repository.Setup(x => x.Get(It.Is<string>(x => x.Equals(user.Cpf)))).Returns(value: null);
             var service = new UserService(AutomapperSingleton.Mapper, _repository.Object);
 
             var result = service.Get(user.Cpf);
@@ -71,7 +70,7 @@ namespace EquipmentManager.Tests.Service
         public void GivenAValidId_ShouldReturnAnUser()
         {
             var user = _fixture.Create<User>();
-            _repository.Setup(x => x.Get(It.Is<string>(x => x.Equals( user.Cpf)))).Returns(user);
+            _repository.Setup(x => x.Get(It.Is<string>(x => x.Equals(user.Cpf)))).Returns(user);
             var service = new UserService(AutomapperSingleton.Mapper, _repository.Object);
 
             var result = service.Get(user.Cpf);

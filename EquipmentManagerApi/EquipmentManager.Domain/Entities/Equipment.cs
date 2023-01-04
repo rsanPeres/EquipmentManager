@@ -9,7 +9,7 @@ namespace EquipmentManager.Domain.Entities
         public string Name { get; private set; }
         public EquipmentModel EquipmentModel { get; private set; }
         public ICollection<EquipmentStateHistory> EquipmentStatesHistory { get; private set; }
-        public ICollection<EquipmentPositionHistory> EquipmentPositionHistories { get; private set; }
+        public ICollection<EquipmentPositionHistory> EquipmentPositionsHistory { get; private set; }
 
         protected Equipment() { }
 
@@ -23,7 +23,7 @@ namespace EquipmentManager.Domain.Entities
             Name = name;
             EquipmentModel = equipmentModel;
             EquipmentStatesHistory = new List<EquipmentStateHistory>();
-            EquipmentPositionHistories = new List<EquipmentPositionHistory>();
+            EquipmentPositionsHistory = new List<EquipmentPositionHistory>();
         }
 
         public void Update(string name, EquipmentModel equipmentModel)

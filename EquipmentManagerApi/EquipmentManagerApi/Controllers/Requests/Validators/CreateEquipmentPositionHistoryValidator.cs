@@ -12,9 +12,6 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
             RuleFor(p => p.Latitude)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(p => p.DateRegisteredPosition)
-                .NotNull()
-                .NotEmpty();
         }
     }
 }

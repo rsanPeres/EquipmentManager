@@ -13,5 +13,6 @@ namespace EquipmentManager.Application.Interfaces
         public List<EquipmentStateHistoryDto> GetManyByEquipment(int id);
         public List<EquipmentPositionHistoryDto> PositionByEquipment(int id);
         public EquipmentStateHistoryDto GetLastStateEquipment(int id);
+        EquipmentModelDto GetModelByEquipmentId(int id);
     }
 }

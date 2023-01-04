@@ -1,6 +1,7 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
+using System.Linq;
 
 namespace EquipmentManager.Repository
 {
@@ -39,6 +40,17 @@ namespace EquipmentManager.Repository
         {
             var equipment = _appContext.Equipments.Find(id);
             return equipment;
+        }
+
+        public Dictionary<string, string> GetEquipmentModelByEquipmentId(int equipmentId)
+        {
+            var queryState = (from equipment in _appContext.Equipments
+                        join equipmentState in _appContext.EquipmentsStateHistory on
+                        equipmentId equals equipmentState.Equipment.Id
+                        orderby equipmentState.EquipmentState.Id descending
+                        select new Dictionary<string, string>(){ { equipment.Name, equipmentState.EquipmentState.StateName } }).First();
+
+            return queryState;
         }
 
         public void Delete(int id)

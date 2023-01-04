@@ -12,5 +12,7 @@ namespace EquipmentManager.Application.Dtos
         public int Id { get; set; }
         public string Name { get; set; }
         public EquipmentModelDto EquipmentModel { get; set; }
+        public EquipmentStateDto EquipmentState { get; set; }
+        public EquipmentPositionHistoryDto EquipmentPositionHistory { get; set; }
     }
 }

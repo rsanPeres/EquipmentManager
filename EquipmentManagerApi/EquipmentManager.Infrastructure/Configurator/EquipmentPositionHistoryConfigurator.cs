@@ -17,7 +17,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .HasName("Id_EquipmentPositionHistory");
 
             builder.HasOne(x => x.Equipment)
-                .WithMany(x => x.EquipmentPositionHistories);
+                .WithMany(x => x.EquipmentPositionsHistory);
 
             builder.Ignore(x => x.Notifications);
             builder.Ignore(x => x.IsValid);

@@ -7,6 +7,8 @@ namespace EquipmentManagerApi.Controllers.Requests
     {
         public string Name { get; set; }
         public EquipmentModelDto EquipmentModel { get; set; }
+        public CreateEquipmentStateRequest EquipmentState { get; set; }
+        public CreateEquipmentPositionHistoryRequest EquipmentPositionHistory { get; set; }
     }
 
 }

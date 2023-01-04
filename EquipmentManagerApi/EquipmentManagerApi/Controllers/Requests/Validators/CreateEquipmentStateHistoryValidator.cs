@@ -6,10 +6,6 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
     {
         public CreateEquipmentStateHistoryValidator()
         {
-            
-            RuleFor(p => p.ReportedStatusStartDate)
-                .NotNull()
-                .NotEmpty();
         }
     }
 }

@@ -12,11 +12,13 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
                 .IsValidCPF()
                 .MaximumLength(11)
                 .MinimumLength(11)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("CPF deve ser informado");
 
             RuleFor(p => p.Role)
                 .NotEmpty()
-                .NotEmpty();
+                .NotEmpty()
+                .WithName("Employee Role");
 
             RuleFor(p => p.Password)
                 .NotNull()

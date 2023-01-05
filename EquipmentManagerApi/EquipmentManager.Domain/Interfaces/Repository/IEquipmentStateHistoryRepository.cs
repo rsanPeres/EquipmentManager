@@ -13,5 +13,6 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         void Update(EquipmentStateHistory StateHistory);
         List<EquipmentStateHistory> GetManyByEquipment(int id);
         EquipmentStateHistory GetLastByEquipment(int id);
+        Dictionary<string, EquipmentModelStateHourlyEarning> GetValueByHour(int id);
     }
 }

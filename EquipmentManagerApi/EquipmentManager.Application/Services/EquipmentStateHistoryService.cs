@@ -75,6 +75,18 @@ namespace EquipmentManager.Application.Services
 
         }
 
+        public Dictionary<string, EquipmentModelStateHourlyEarning> GetValueByHour(int stateHistoryId)
+        {
+            _repository.EnsureCreatedDatabase();
+
+            var equipmentValueByHour = _repository.GetValueByHour(stateHistoryId);
+            if (equipmentValueByHour is null)
+            {
+                AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
+            }
+            return equipmentValueByHour;
+        }
+
         public void Delete(int id)
         {
             _repository.EnsureCreatedDatabase();

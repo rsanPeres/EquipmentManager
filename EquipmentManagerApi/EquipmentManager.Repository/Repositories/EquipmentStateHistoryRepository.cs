@@ -40,6 +40,18 @@ namespace EquipmentManager.Repository.Repositories
             return EquipmentStateHistory;
         }
 
+        public Dictionary<string, EquipmentModelStateHourlyEarning> GetValueByHour(int id)
+        {
+            var query = (from equipmentStateHistory in _appContext.EquipmentsStateHistory
+                         join equipmentState in _appContext.EquipmentsState on
+                         id equals equipmentState.Id
+                         join equipmentHourlyEarning in _appContext.EquipmentsModelStateHourlyEarning on
+                         equipmentState.Id equals equipmentHourlyEarning.EquipmentStateId
+                         orderby equipmentState.Id descending
+                         select new Dictionary<string, EquipmentModelStateHourlyEarning>() { { equipmentState.StateName, equipmentHourlyEarning } }).First();
+            return query;
+        }
+
         public EquipmentStateHistory GetLastByEquipment(int id)
         {
             var state = _appContext.EquipmentsStateHistory.OrderByDescending(x =>x.Equipment.Id == id).FirstOrDefault();

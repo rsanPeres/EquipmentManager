@@ -22,6 +22,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpGet]
+        [Route("Get")]
         public IActionResult Get(GetEquipmentStateHistoryRequest request)
         {
             try
@@ -92,8 +93,45 @@ namespace EquipmentManagerApi.Controllers
                 return BadRequest(response);
             }
         }
+      
+        [HttpGet]
+        [Route("GetStateByValue")]
+        public IActionResult GetByValue(GetEquipmentStateHistoryRequest request)
+        {
+            try
+            {
+                GetEquipmentStateHistoryValidator validator = new();
+
+                var result = validator.Validate(request);
+                if (result.IsValid == false)
+                {
+                    throw new Exception(result.ToString());
+                }
+                var equipmentStateHistory = _service.GetValueByHour(request.EquipmentState.Id);
+
+                var ret = _mapper.Map<GetValueByEquipmentStateResponse>(equipmentStateHistory);
+                var response = new ApiResponse<GetValueByEquipmentStateResponse>()
+                {
+                    Success = true,
+                    Data = ret,
+                    Messages = null
+                };
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new ApiResponse<string>()
+                {
+                    Success = false,
+                    Data = null,
+                    Messages = e.Message
+                };
+                return BadRequest(response);
+            }
+        }
 
         [HttpPost]
+        [Route("Post")]
         public async Task<IActionResult> Create(CreateEquipmentStateHistoryRequest request)
         {
             try
@@ -132,6 +170,7 @@ namespace EquipmentManagerApi.Controllers
         }
 
         [HttpDelete]
+        [Route("Delete")]
         public async Task<IActionResult> Delete(DeleteEquipmentStateHistoryRequest request)
         {
             try

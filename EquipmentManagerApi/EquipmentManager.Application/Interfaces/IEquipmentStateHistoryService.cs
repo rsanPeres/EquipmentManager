@@ -1,4 +1,5 @@
 ﻿using EquipmentManager.Application.Dtos;
+using EquipmentManager.Domain.Entities;
 
 namespace EquipmentManager.Application.Interfaces
 {
@@ -9,6 +10,7 @@ namespace EquipmentManager.Application.Interfaces
         EquipmentStateHistoryDto Get(int id);
         List<EquipmentStateHistoryDto> GetMany();
         List<EquipmentStateHistoryDto> GetManyByEquipment(int id);
+        Dictionary<string, EquipmentModelStateHourlyEarning> GetValueByHour(int stateHistoryId);
 
     }
 }

@@ -20,6 +20,9 @@ namespace EquipmentManager.Infrastructure.Configurator
             builder
                 .HasKey(x => x.Id);
             builder
+                .Property(x => x.Id).HasColumnType("integer");
+
+            builder
                 .Property(p => p.Id)
                 .HasColumnName("Id_EquipmentState");
             builder

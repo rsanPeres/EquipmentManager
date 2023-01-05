@@ -15,7 +15,8 @@ namespace EquipmentManager.Infrastructure.Configurator
             builder
                 .HasKey(x => x.Id)
                 .HasName("Id_EquipmentPositionHistory");
-
+            builder
+                .Property(x => x.Id).HasColumnType("integer");
             builder.HasOne(x => x.Equipment)
                 .WithMany(x => x.EquipmentPositionsHistory);
 

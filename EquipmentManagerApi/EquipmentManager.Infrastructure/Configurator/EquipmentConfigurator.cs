@@ -14,6 +14,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .ToTable("Equipment");
             builder
                 .HasKey(x => x.Id);
+            builder.Property(x => x.Id).HasColumnType("integer");
             builder
                 .Property(p => p.Id)
                 .HasColumnName("Id_Equipment");

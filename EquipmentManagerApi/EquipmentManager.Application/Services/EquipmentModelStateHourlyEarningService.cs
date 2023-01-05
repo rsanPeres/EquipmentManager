@@ -27,8 +27,8 @@ namespace EquipmentManager.Application.Services
         public void Create(EquipmentModelStateHourlyEarningDto hourlyEarning)
         {
             _repository.EnsureCreatedDatabase();
-            var equipmentModel = _modelRepository.Get(hourlyEarning.EquipmentModel.Id);
-            var equipmentState = _stateRepository.Get(hourlyEarning.EquipmentState.Id);
+            var equipmentModel = _modelRepository.Get(hourlyEarning.EquipmentModelId);
+            var equipmentState = _stateRepository.Get(hourlyEarning.EquipmentStateId);
             var equipmentHourlyEarning = new EquipmentModelStateHourlyEarning(hourlyEarning.EarnedValueByHourState, equipmentModel, equipmentState);
             AddNotifications(equipmentHourlyEarning);
 

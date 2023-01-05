@@ -47,10 +47,9 @@ namespace EquipmentManager.Repository.Repositories
                          id equals equipmentState.Id
                          join equipmentHourlyEarning in _appContext.EquipmentsModelStateHourlyEarning on
                          equipmentState.Id equals equipmentHourlyEarning.EquipmentStateId
-                         orderby equipmentState.Id descending
+                         orderby equipmentHourlyEarning.EquipmentStateId descending
                          select new Dictionary<string, EquipmentModelStateHourlyEarning>() { { equipmentState.StateName, equipmentHourlyEarning } }).First();
-            return query;
-        }
+            return query;        }
 
         public EquipmentStateHistory GetLastByEquipment(int id)
         {

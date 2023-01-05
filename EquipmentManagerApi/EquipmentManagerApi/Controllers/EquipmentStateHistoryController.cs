@@ -109,11 +109,12 @@ namespace EquipmentManagerApi.Controllers
                 }
                 var equipmentStateHistory = _service.GetValueByHour(request.EquipmentState.Id);
 
-                var ret = _mapper.Map<GetValueByEquipmentStateResponse>(equipmentStateHistory);
+                var equipmentResponse = new GetValueByEquipmentStateResponse();
+                equipmentResponse.ValueByState = equipmentStateHistory;
                 var response = new ApiResponse<GetValueByEquipmentStateResponse>()
                 {
                     Success = true,
-                    Data = ret,
+                    Data = equipmentResponse,
                     Messages = null
                 };
                 return Ok(response);

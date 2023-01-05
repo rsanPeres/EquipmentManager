@@ -14,7 +14,6 @@ namespace EquipmentManager.Infrastructure.Configurator
 
         public void Configure(EntityTypeBuilder<EquipmentModelStateHourlyEarning> builder)
         {
-
             builder
                 .ToTable("Equipment_Model_State_Hourly_Earning");
             builder

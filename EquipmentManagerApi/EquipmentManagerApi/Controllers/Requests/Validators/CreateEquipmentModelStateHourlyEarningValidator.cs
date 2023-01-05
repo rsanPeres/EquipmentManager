@@ -8,8 +8,8 @@ namespace EquipmentManagerApi.Controllers.Requests.Validators
         {
             RuleFor(x => x.EarnedValueByHourState)
                 .NotEmpty();
-            RuleFor(x => x.EquipmentModelId).Empty();
-            RuleFor(x => x.EquipmentStateId).Empty();
+            RuleFor(x => x.EquipmentModelId).NotEmpty();
+            RuleFor(x => x.EquipmentStateId).NotEmpty();
         }
     }
 }

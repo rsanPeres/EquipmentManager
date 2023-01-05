@@ -18,7 +18,7 @@ namespace EquipmentManager.Infrastructure.Configurator
                 .HasKey(x => x.Id);
             builder
                 .Property(p => p.Id)
-                .HasColumnName("Id_User");
+                .HasColumnName("Id_User").HasColumnType("Integer");
             builder
                 .Property(p => p.Cpf).HasMaxLength(11).IsRequired();
             builder

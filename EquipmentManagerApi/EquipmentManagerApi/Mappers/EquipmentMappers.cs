@@ -78,7 +78,8 @@ namespace EquipmentManagerApi.Mappers
 
         private void DeleteToResponse()
         {
-
+            CreateMap<DeleteEquipmentRequest, DeleteEquipmentResponse>()
+                .ReverseMap();
         }
     }
 }

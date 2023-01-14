@@ -1,16 +1,11 @@
 ﻿using EquipmentManager.Domain.Entities;
 using EquipmentManager.Domain.Interfaces.Repository;
 using EquipmentManager.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EquipmentManager.Repository.Repositories
 {
-    public class EquipmentModelRepository : IEquipmentModelRepository 
+    public class EquipmentModelRepository : IEquipmentModelRepository
     {
         private readonly ApplicationContext _appContext;
 
@@ -41,9 +36,13 @@ namespace EquipmentManager.Repository.Repositories
             return equipmentModel;
         }
 
-        public EquipmentModel GetModelByEquipmentId(int id)
+        public Dictionary<string, string> GetModelByEquipmentId(Equipment equipment)
         {
-            var equipmentModel = _appContext.EquipmentsModel.OrderByDescending(x => x.Equipments.Where(x => x.Id.Equals(id))).FirstOrDefault();
+            var equipmentModel = (from equip in _appContext.Equipments
+                                  join equipmentM in _appContext.EquipmentsModel on
+                                  equipment.EquipmentModel.Id equals equipmentM.Id 
+                                  select new Dictionary<string, string>() { { equipment.Name, equipmentM.Name } }).FirstOrDefault();
+           
             return equipmentModel;
         }
 

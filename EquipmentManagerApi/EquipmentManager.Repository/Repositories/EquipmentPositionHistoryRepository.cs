@@ -29,9 +29,9 @@ namespace EquipmentManager.Repository.Repositories
             return equipmentPositionHistory;
         }
 
-        public List<EquipmentPositionHistory> PositionByEquipment(int id)
+        public EquipmentPositionHistory PositionByEquipment(int id)
         {
-            var equipmentPosition = _appContext.EquipmentsPositionHistory.Where(x => x.Equipment.Id == id).ToList<EquipmentPositionHistory>();
+            var equipmentPosition = _appContext.EquipmentsPositionHistory.OrderByDescending(x => x.Equipment.Id == id).FirstOrDefault();
             return equipmentPosition;
         }
 

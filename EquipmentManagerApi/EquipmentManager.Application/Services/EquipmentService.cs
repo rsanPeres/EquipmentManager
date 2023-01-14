@@ -30,13 +30,26 @@ namespace EquipmentManager.Application.Services
 
         public void Create(EquipmentDto equipmentDto)
         {
+            if(equipmentDto == null)
+            {
+                throw new ArgumentNullException("Equipment must not be null")
+            }
+            if (equipmentDto.EquipmentModel == null) {
+                throw new NullReferenceException("Equipment model must not be null");
+            } 
             var equipmentModel = _equipmentModelRepository.Get(equipmentDto.EquipmentModel.Id);
             var equipment = new Equipment(equipmentDto.Name, equipmentModel);
-
+            if (equipmentDto.EquipmentPositionHistory == null)
+            {
+                throw new NullReferenceException("Equipment position history must not be null");
+            }
             var equipPosition = new EquipmentPositionHistory(equipmentDto.EquipmentPositionHistory.Latitude, equipmentDto.EquipmentPositionHistory.Length, equipment);
             _equipmentPositionHistoryRepository.Create(equipPosition);
             equipment.EquipmentPositionsHistory.Add(equipPosition);
-
+            if (equipmentDto.EquipmentState == null)
+            {
+                throw new NullReferenceException("Equipment state must not be null");
+            }
             var equipmentState = new EquipmentState(equipmentDto.EquipmentState.StateName, equipmentDto.EquipmentState.EquipmentColor);
             //_equipmentStateRepository.Create(equipmentState);
 
@@ -120,29 +133,24 @@ namespace EquipmentManager.Application.Services
             return _mapper.Map<List<EquipmentPositionHistoryDto>>(listPositions);
         }
 
-        public EquipmentModelDto GetModelByEquipmentId(int id)
+        public Dictionary<string, string> GetModelByEquipmentId(int id)
         {
             _equipmentPositionHistoryRepository.EnsureCreatedDatabase();
-            var equipmentModel = _equipmentModelRepository.GetModelByEquipmentId(id);
+            var equipment = _equipmentRepository.Get(id);
+            var equipmentModel = _equipmentModelRepository.GetModelByEquipmentId(equipment);
             if (equipmentModel is null)
             {
                 AddNotification(EquipmentConstants.EquipmentEmpty, EquipmentConstants.EquipmentEmptyMsg);
             }
-            return _mapper.Map<EquipmentModelDto>(equipmentModel);
+            return equipmentModel;
         }
 
         public void Update(EquipmentDto equipmentDto)
         {
             _equipmentRepository.EnsureCreatedDatabase();
 
-            var equipmentModel = _equipmentModelRepository.Get(equipmentDto.EquipmentModel.Id);
             var equipment = _equipmentRepository.Get(equipmentDto.Id);
-            equipment.Update(equipmentDto.Name, equipmentModel);
-            AddNotifications(equipment);
-
-            if (!IsValid)
-                return;
-
+            equipment.setName(equipmentDto.Name);
             _equipmentRepository.Update(equipment);
             _equipmentRepository.SaveChanges();
 

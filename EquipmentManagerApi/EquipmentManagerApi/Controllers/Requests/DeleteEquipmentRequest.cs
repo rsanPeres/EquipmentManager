@@ -4,7 +4,7 @@ namespace EquipmentManagerApi.Controllers.Requests
 {
     public class DeleteEquipmentRequest
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         
     }
 }

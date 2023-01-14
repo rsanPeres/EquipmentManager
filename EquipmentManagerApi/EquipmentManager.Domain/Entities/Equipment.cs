@@ -26,15 +26,6 @@ namespace EquipmentManager.Domain.Entities
             EquipmentPositionsHistory = new List<EquipmentPositionHistory>();
         }
 
-        public void Update(string name, EquipmentModel equipmentModel)
-        {
-            Validate(name, equipmentModel);
-
-            if (!IsValid)
-                return;
-
-            Name = name;
-        }
         public void Validate(string name, EquipmentModel equipmentModel)
         {
             AddNotifications(new Contract<Notification>()
@@ -43,5 +34,10 @@ namespace EquipmentManager.Domain.Entities
                .IsNotNull(equipmentModel, "invalid_equipmentModel", "Invalid equipmentModel"));
 
         }
+
+        public void setName(string name)
+        {
+            Name = name;
+        }    
     }
 }

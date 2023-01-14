@@ -11,6 +11,6 @@ namespace EquipmentManager.Domain.Interfaces.Repository
         public void Delete(int id);
         public void SaveChanges();
         public void EnsureCreatedDatabase();
-        EquipmentModel GetModelByEquipmentId(int id);
+        Dictionary<string, string> GetModelByEquipmentId(Equipment equipment);
     }
 }

@@ -65,8 +65,6 @@ namespace EquipmentManagerApi.Controllers
             {
                 var equipment = _service.GetMany();
 
-
-
                 return Ok(equipment);
             }
             catch (Exception e)

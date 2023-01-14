@@ -17,12 +17,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EquipmentManager.Application\EquipmentManager.Application.csproj" />
     <ProjectReference Include="..\EquipmentManager.Repository\EquipmentManager.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Requests\Validators\RequestsValidator\" />
   </ItemGroup>
 
 </Project>
